@@ -1,5 +1,7 @@
 import express from "express";
 import { connectTODB } from "./database/connection.js";
+import products from "./routes/products.js";
+import morgan from "morgan";
 
 const app = express();
 
@@ -11,6 +13,5 @@ connectTODB().then(() => {
   });
 });
 
-app.get("/", (req, res) => {
-  res.send("Hello World!!!");
-});
+app.use(morgan("dev"));
+app.use("/products", products);
