@@ -1,20 +1,18 @@
 import Mobile from "../modals/Mobile.js";
 
-const getProducts = (req, res) => {
+const getMobiles = (req, res) => {
   res.json({ msg: "All the products" });
 };
 
-const createProduct = async (req, res) => {
-  console.log(req.body);
-
+const createMobile = async (req, res) => {
   try {
     const mobile = new Mobile(req.body);
-    mobile.save();
+    await mobile.save();
+    res.json({ msg: "Created a product", body: req.body });
   } catch (error) {
     console.log(error);
+    res.status(400).json({ msg: "could not save the product." });
   }
-
-  res.json({ msg: "Created a product", body: req.body });
 };
 
-export { getProducts, createProduct };
+export { getMobiles, createMobile };
