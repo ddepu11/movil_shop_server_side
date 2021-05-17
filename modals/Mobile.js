@@ -1,6 +1,6 @@
-import { Schema, Model } from "mongoose";
+import mongoose from "mongoose";
 
-const mobileSchema = new Schema({
+const mobileSchema = new mongoose.Schema({
   title: {
     type: String,
     isRequired: true,
@@ -25,5 +25,9 @@ const mobileSchema = new Schema({
   colors: {
     type: Array,
     isRequired: true,
-   },
+  },
 });
+
+const Mobile = mongoose.model("Mobile", mobileSchema);
+
+export default Mobile;
