@@ -2,6 +2,7 @@ import express from "express";
 import { connectTODB } from "./database/connection.js";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+import cors from "cors";
 import products from "./routes/products.js";
 import user from "./routes/user.js";
 
@@ -15,6 +16,7 @@ connectTODB().then(() => {
   });
 });
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
