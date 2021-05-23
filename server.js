@@ -1,8 +1,9 @@
 import express from "express";
 import { connectTODB } from "./database/connection.js";
-import products from "./routes/products.js";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+import products from "./routes/products.js";
+import user from "./routes/user.js";
 
 const app = express();
 
@@ -17,5 +18,11 @@ connectTODB().then(() => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Morgen is a logger
 app.use(morgan("dev"));
+
+// Routes for products
 app.use("/products", products);
+
+// Routes for user
+app.use("/user", user);
