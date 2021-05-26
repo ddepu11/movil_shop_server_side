@@ -10,13 +10,13 @@ const logIn = (req, res) => {
 // @desc   Handling User Sign Up
 // @route  POST  /user/sign-up
 const signUp = async (req, res) => {
-  let { email, phoneNumber, password } = req.body;
+  const { email, phoneNumber } = req.body;
 
   try {
     // Password hashing
     const salt = await genSalt(10);
-    password = hash(password, salt);
-
+    req.body.password = await hash(req.body.password, salt);
+    
     // Find if email already exists
     const doesEmailAlreadyExists = await User.findOne({ email: email });
 
