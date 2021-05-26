@@ -6,8 +6,26 @@ const logIn = (req, res) => {
 
 // @desc   Handling User Sign Up
 // @route  POST  /user/sign-up
-const signUp = (req, res) => {
-  res.json({ msg: "Sign up request!!!", data: req.body });
+const signUp = async (req, res) => {
+  const { confirmPassword, email, firstName, lastName, password, phoneNumber } =
+    req.body;
+
+  try {
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  res.json({
+    msg: "Sign Up request",
+    data: {
+      confirmPassword,
+      email,
+      firstName,
+      lastName,
+      password,
+      phoneNumber,
+    },
+  });
 };
 
 export { logIn, signUp };
