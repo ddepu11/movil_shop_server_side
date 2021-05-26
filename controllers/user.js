@@ -1,5 +1,4 @@
 import User from "../modals/User.js";
-import UserException from "../utils/userException.js";
 
 // @desc   Handling User Log in
 // @route  POST  /user/login
@@ -10,8 +9,7 @@ const logIn = (req, res) => {
 // @desc   Handling User Sign Up
 // @route  POST  /user/sign-up
 const signUp = async (req, res) => {
-  const { confirmPassword, email, firstName, lastName, password, phoneNumber } =
-    req.body;
+  const { email, phoneNumber } = req.body;
 
   try {
     const userWithThisEmailAlreadyExists = await User.findOne({ email: email });
@@ -19,16 +17,18 @@ const signUp = async (req, res) => {
       phoneNumber: phoneNumber,
     });
 
+    // When the user enters already existing credentials
     if (userWithThisEmailAlreadyExists) {
       res.status(409).json({
-        msg: "This Email is already being used!!",
+        msg: "This Email is already being used by someone else!!!",
       });
     } else if (userWithThisPhoneNumberAlreadyExists) {
       res.status(409).json({
-        msg: "This phone number is already being used!!",
+        msg: "This phone number is already being used by someone else!!!",
       });
     }
 
+    // When the user enters fresh credentials
     if (
       !userWithThisEmailAlreadyExists &&
       !userWithThisPhoneNumberAlreadyExists
