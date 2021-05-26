@@ -1,4 +1,5 @@
 import User from "../modals/User.js";
+import UserException from "../utils/userException.js";
 
 // @desc   Handling User Log in
 // @route  POST  /user/login
@@ -19,11 +20,11 @@ const signUp = async (req, res) => {
     });
 
     if (userWithThisEmailAlreadyExists) {
-      res.status(500).json({
+      res.status(409).json({
         msg: "This Email is already being used!!",
       });
     } else if (userWithThisPhoneNumberAlreadyExists) {
-      res.status(500).json({
+      res.status(409).json({
         msg: "This phone number is already being used!!",
       });
     }
@@ -34,7 +35,9 @@ const signUp = async (req, res) => {
     ) {
       const user = new User(req.body);
       await user.save();
-      res.json({ redirect: "/", msg: "User registration successfull" });
+      res
+        .status(201)
+        .json({ redirect: "/", msg: "User registration successfull" });
     }
   } catch (err) {
     res.status(400).json({ msg: err.message });
