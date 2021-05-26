@@ -1,3 +1,5 @@
+import User from "../modals/User.js";
+
 // @desc   Handling User Log in
 // @route  POST  /user/login
 const logIn = (req, res) => {
@@ -11,21 +13,16 @@ const signUp = async (req, res) => {
     req.body;
 
   try {
-  } catch (err) {
-    console.log(err.message);
-  }
+    const userEmail = await User.findOne({ email: email });
+    const userPN = await User.findOne({ phoneNumber: phoneNumber });
 
-  res.json({
-    msg: "Sign Up request",
-    data: {
-      confirmPassword,
-      email,
-      firstName,
-      lastName,
-      password,
-      phoneNumber,
-    },
-  });
+    userEmail &&
+      res.status(500).json({
+        msg: "This Email is already being used!!",
+      });
+  } catch (err) {
+    res.status(400).json({ msg: err.message });
+  }
 };
 
 export { logIn, signUp };
