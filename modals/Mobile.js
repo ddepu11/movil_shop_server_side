@@ -26,6 +26,7 @@ const mobileSchema = new mongoose.Schema({
     type: Array,
     isRequired: true,
   },
+  { timestamps: true }
 });
 
 const Mobile = mongoose.model("Mobile", mobileSchema);

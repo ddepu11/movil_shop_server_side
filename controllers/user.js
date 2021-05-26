@@ -16,10 +16,20 @@ const signUp = async (req, res) => {
     const userEmail = await User.findOne({ email: email });
     const userPN = await User.findOne({ phoneNumber: phoneNumber });
 
-    userEmail &&
+    userPN &&
       res.status(500).json({
         msg: "This Email is already being used!!",
       });
+
+    userPN &&
+      res.status(500).json({
+        msg: "This phone number is already being used!!",
+      });
+
+    if (!userPN && !userPN) {
+      const user = new User(req.body);
+      
+    }
   } catch (err) {
     res.status(400).json({ msg: err.message });
   }
