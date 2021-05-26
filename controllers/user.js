@@ -16,7 +16,7 @@ const signUp = async (req, res) => {
     const userEmail = await User.findOne({ email: email });
     const userPN = await User.findOne({ phoneNumber: phoneNumber });
 
-    userPN &&
+    userEmail &&
       res.status(500).json({
         msg: "This Email is already being used!!",
       });
