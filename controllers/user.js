@@ -13,20 +13,25 @@ const signUp = async (req, res) => {
     req.body;
 
   try {
-    const userEmail = await User.findOne({ email: email });
-    const userPN = await User.findOne({ phoneNumber: phoneNumber });
+    const userWithThisEmailAlreadyExists = await User.findOne({ email: email });
+    const userWithThisPhoneNumberAlreadyExists = await User.findOne({
+      phoneNumber: phoneNumber,
+    });
 
-    userEmail &&
+    if (userWithThisEmailAlreadyExists) {
       res.status(500).json({
         msg: "This Email is already being used!!",
       });
-
-    userPN &&
+    } else if (userWithThisPhoneNumberAlreadyExists) {
       res.status(500).json({
         msg: "This phone number is already being used!!",
       });
+    }
 
-    if (!userPN && !userPN) {
+    if (
+      !userWithThisEmailAlreadyExists &&
+      !userWithThisPhoneNumberAlreadyExists
+    ) {
       const user = new User(req.body);
       await user.save();
       res.json({ redirect: "/", msg: "User registration successfull" });
