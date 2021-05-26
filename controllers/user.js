@@ -28,7 +28,8 @@ const signUp = async (req, res) => {
 
     if (!userPN && !userPN) {
       const user = new User(req.body);
-      
+      await user.save();
+      res.json({ redirect: "/", msg: "User registration successfull" });
     }
   } catch (err) {
     res.status(400).json({ msg: err.message });
