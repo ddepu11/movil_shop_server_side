@@ -40,9 +40,7 @@ const signUp = async (req, res) => {
     if (!doesEmailAlreadyExists && !doesPNAlreadyExists) {
       const user = new User(req.body);
       await user.save();
-      res
-        .status(201)
-        .json({ redirect: "/", msg: "User registration successfull" });
+      res.status(201).json({ user, msg: "User registration successfull" });
     }
   } catch (err) {
     res.status(400).json({ msg: err.message });
