@@ -16,7 +16,7 @@ const signUp = async (req, res) => {
     // Password hashing
     const salt = await genSalt(10);
     req.body.password = await hash(req.body.password, salt);
-    
+
     // Find if email already exists
     const doesEmailAlreadyExists = await User.findOne({ email: email });
 
@@ -25,7 +25,7 @@ const signUp = async (req, res) => {
       phoneNumber: phoneNumber,
     });
 
-    // When the user enters already existing credentials
+    // Runs When the user enters already existing credentials
     if (doesEmailAlreadyExists) {
       res.status(409).json({
         msg: "This Email is already being used by someone else!!!",
@@ -36,7 +36,7 @@ const signUp = async (req, res) => {
       });
     }
 
-    // When the user enters fresh credentials
+    // Runs When the user enters fresh credentials
     if (!doesEmailAlreadyExists && !doesPNAlreadyExists) {
       const user = new User(req.body);
       await user.save();
