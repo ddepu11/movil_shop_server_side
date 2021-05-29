@@ -1,10 +1,10 @@
-import User from "../modals/User.js";
-import { genSalt, hash } from "bcrypt";
+import User from '../modals/User.js';
+import { genSalt, hash } from 'bcrypt';
 
 // @desc   Handling User Log in
 // @route  POST  /user/login
 const logIn = (req, res) => {
-  res.json({ msg: "Log in request", data: req.body });
+  res.json({ msg: 'Log in request', data: req.body });
 };
 
 // @desc   Handling User Sign Up
@@ -28,11 +28,11 @@ const signUp = async (req, res) => {
     // Runs When the user enters already existing credentials
     if (doesEmailAlreadyExists) {
       res.status(409).json({
-        msg: "This Email is already being used by someone else!!!",
+        msg: 'This Email is already being used by someone else!!!',
       });
     } else if (doesPNAlreadyExists) {
       res.status(409).json({
-        msg: "This phone number is already being used by someone else!!!",
+        msg: 'This phone number is already being used by someone else!!!',
       });
     }
 
@@ -40,7 +40,7 @@ const signUp = async (req, res) => {
     if (!doesEmailAlreadyExists && !doesPNAlreadyExists) {
       const user = new User(req.body);
       await user.save();
-      res.status(201).json({ msg: "User registration successfull" });
+      res.status(201).json({ msg: 'User registration successfull' });
     }
   } catch (err) {
     res.status(400).json({ msg: err.message });

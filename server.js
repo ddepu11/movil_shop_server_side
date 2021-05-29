@@ -1,13 +1,16 @@
 import app from './app.js';
-import { connectTODB } from './database/connection.js';
+import mongoose from 'mongoose';
 
 const PORT = process.env.PORT || 5000;
 const DB_URI = process.env.DB_URI;
 
-connectTODB(DB_URI).then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is up and running on port ${PORT}`);
-  });
+await mongoose.connect(DB_URI, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
 });
 
-console.log('');
+app.listen(PORT, () => {
+  console.log(`Server is up and running on port ${PORT}`);
+});
