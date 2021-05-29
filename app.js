@@ -8,12 +8,15 @@ import user from "./routes/userRoutes.js";
 const app = express();
 
 // Middleweres
+// Morgen is a logger
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// Morgen is a logger
-app.use(morgan("dev"));
 
 // Routes for products
 app.use("/products", products);
