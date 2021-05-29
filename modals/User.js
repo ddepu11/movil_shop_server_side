@@ -26,7 +26,11 @@ const userSchema = new Schema(
       type: String,
       isRequired: true,
     },
-    roles: [{ type: mongoose.SchemaType.ObjectId, isRequired: false }],
+    role: {
+      type: String,
+      isRequired: false,
+      default: 'USER',
+    },
   },
   { timestamps: true }
 );
