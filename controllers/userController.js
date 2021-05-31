@@ -3,8 +3,22 @@ import { genSalt, hash } from 'bcrypt';
 
 // @desc   Handling User Log in
 // @route  POST  /user/login
-const logIn = (req, res) => {
-  res.json({ msg: 'Log in request', data: req.body });
+const logIn = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const hasUserRegistered = await User.findOne({ email: email });
+
+    if (hasUserRegistered) {
+      res
+        .status(200)
+        .json({ msg: `User login successfull`, user: hasUserRegistered });
+    } else {
+      res.status(404).json({ msg: `User with ${email} does not exists!!!` });
+    }
+  } catch (err) {
+    res.status(404).json({ msg: err.responce });
+  }
 };
 
 // @desc   Handling User Sign Up
