@@ -1,5 +1,5 @@
 import User from '../modals/User.js';
-import { genSalt, hash } from 'bcrypt';
+import { genSalt, hash, compare } from 'bcrypt';
 
 // @desc   Handling User Log in
 // @route  POST  /user/login
@@ -10,9 +10,15 @@ const logIn = async (req, res) => {
     const hasUserRegistered = await User.findOne({ email: email });
 
     if (hasUserRegistered) {
-      res
-        .status(200)
-        .json({ msg: `User login successfull`, user: hasUserRegistered });
+      const match = await compare(password, hasUserRegistered.password);
+
+      match
+        ? res
+            .status(200)
+            .json({ msg: `User login successfull!!!`, user: hasUserRegistered })
+        : res.status(404).json({
+            msg: `The password you have entered is wrong!!!`,
+          });
     } else {
       res.status(404).json({ msg: `User with ${email} does not exists!!!` });
     }
