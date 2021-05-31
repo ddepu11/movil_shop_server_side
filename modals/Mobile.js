@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const mobileSchema = new mongoose.Schema(
   {
@@ -31,6 +31,6 @@ const mobileSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Mobile = mongoose.model("Mobile", mobileSchema);
+const Mobile = mongoose.model('Mobile', mobileSchema);
 
 export default Mobile;

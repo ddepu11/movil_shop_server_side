@@ -13,10 +13,6 @@ const signUp = async (req, res) => {
   const { email, phoneNumber } = req.body;
 
   try {
-    // Password hashing
-    const salt = await genSalt(10);
-    req.body.password = await hash(req.body.password, salt);
-
     // Find if email already exists
     const doesEmailAlreadyExists = await User.findOne({ email: email });
 
@@ -38,9 +34,13 @@ const signUp = async (req, res) => {
 
     // Runs When the user enters fresh credentials
     if (!doesEmailAlreadyExists && !doesPNAlreadyExists) {
+      // Password hashing
+      const salt = await genSalt(10);
+      req.body.password = await hash(req.body.password, salt);
+
       const user = new User(req.body);
       await user.save();
-      res.status(201).json({ msg: 'User registration successfull' });
+      res.status(201).json({ msg: 'User registration successfull!!!' });
     }
   } catch (err) {
     res.status(400).json({ msg: err.message });

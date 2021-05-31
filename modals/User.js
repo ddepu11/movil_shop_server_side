@@ -35,6 +35,16 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
+// // Runs after saving the doc
+// userSchema.post('save', function (doc, next) {
+//   next();
+// });
+
+// // Runs before saving the doc
+// userSchema.pre('save', function (next) {
+//   next();
+// });
+
 const User = mongoose.model('User', userSchema);
 
 export default User;
