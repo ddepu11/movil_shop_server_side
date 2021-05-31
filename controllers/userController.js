@@ -17,10 +17,10 @@ const logIn = async (req, res) => {
             .status(200)
             .json({ msg: `User login successfull!!!`, user: hasUserRegistered })
         : res.status(404).json({
-            msg: `The password you have entered is wrong!!!`,
+            msg: `Wrong email password combination!!!`,
           });
     } else {
-      res.status(404).json({ msg: `User with ${email} does not exists!!!` });
+      res.status(404).json({ msg: `Wrong email password combination!!!` });
     }
   } catch (err) {
     res.status(404).json({ msg: err.responce });
