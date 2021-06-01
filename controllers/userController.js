@@ -1,5 +1,6 @@
 import User from '../modals/User.js';
 import { genSalt, hash, compare } from 'bcrypt';
+import generateAuthToken from '../utils/generateAuthToken.js';
 
 // @desc   Handling User Log in
 // @route  POST  /user/login
@@ -12,9 +13,9 @@ const logIn = async (req, res) => {
     if (hasUserRegistered) {
       const match = await compare(password, hasUserRegistered.password);
 
-      const token = await hasUserRegistered.generateAuthToken();
+      const token = await generateAuthToken(hasUserRegistered._id);
 
-      if (match) {
+      if (match && token) {
         // 1s = 1000ms
         // 1m = 60s
         // 1hr = 60m

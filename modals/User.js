@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
 
 const Schema = mongoose.Schema;
 
@@ -32,27 +31,9 @@ const userSchema = new Schema(
       isRequired: false,
       default: 'USER',
     },
-    tokens: [
-      {
-        token: {
-          type: String,
-          isRequired: false,
-        },
-      },
-    ],
   },
   { timestamps: true }
 );
-
-userSchema.methods.generateAuthToken = async function () {
-  const secret = process.env.TOKEN_SECRET;
-  const token = await jwt.sign({ _id: this.id }, secret);
-
-  this.tokens = [...this.tokens, { token }];
-  this.save();
-
-  return token;
-};
 
 const User = mongoose.model('User', userSchema);
 
