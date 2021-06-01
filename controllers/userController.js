@@ -27,7 +27,6 @@ const logIn = async (req, res) => {
 
         res.status(200).json({
           msg: `User login successfull!!!`,
-          user: hasUserRegistered,
         });
       } else {
         res.status(404).json({
