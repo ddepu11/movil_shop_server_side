@@ -84,7 +84,7 @@ const signUp = async (req, res) => {
 // @desc  Sends account info
 // @route GET /user/account
 const getAccountInfo = (req, res) => {
-  res.status(200).json({ msg: 'User  Informations' });
+  res.status(200).json({ ...req.userInfo });
 };
 
 export { logIn, signUp, getAccountInfo };
