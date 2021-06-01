@@ -15,7 +15,7 @@ const logIn = async (req, res) => {
       if (match) {
         const token = await hasUserRegistered.generateAuthToken();
 
-        console.log(token);
+        res.cookie('jwt', 'helolow ljksajd');
 
         res.status(200).json({
           msg: `User login successfull!!!`,

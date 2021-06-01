@@ -1,8 +1,8 @@
 import express from 'express';
-import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import session from 'express-session';
+// import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import products from './routes/productRoutes.js';
 import user from './routes/userRoutes.js';
 
@@ -18,22 +18,23 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-app.use(
-  cors({
-    origin: ['http://localhost:3000'],
-    methods: ['GET', 'POST'],
-    credentials: true,
-  })
-);
-app.use(
-  session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true, expires: 60 * 60 * 24  },
-  })
-);
+// app.use(
+//   cors({
+//     origin: ['http://localhost:3000'],
+//     methods: ['GET', 'POST'],
+//     credentials: true,
+//   })
+// );
 
+// app.use(
+//   session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: true, expires: 60 * 60 * 24  },
+//   })
+// );
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
