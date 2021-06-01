@@ -88,4 +88,11 @@ const getAccountInfo = (req, res) => {
   res.status(200).json({ ...req.userInfo });
 };
 
-export { logIn, signUp, getAccountInfo };
+// @desc  Logging user out
+// @route GET /user/log-out
+const logOut = (req, res) => {
+  res.cookie('jwt', '', { maxAge: 1 });
+  res.json({ msg: 'User logged Out!!!' });
+};
+
+export { logIn, signUp, getAccountInfo, logOut };
