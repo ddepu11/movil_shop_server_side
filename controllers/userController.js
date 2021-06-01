@@ -81,4 +81,6 @@ const signUp = async (req, res) => {
   }
 };
 
-export { logIn, signUp };
+const getUserInfo = (req, res) => {};
+
+export { logIn, signUp, getUserInfo };
