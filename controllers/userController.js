@@ -12,10 +12,18 @@ const logIn = async (req, res) => {
     if (hasUserRegistered) {
       const match = await compare(password, hasUserRegistered.password);
 
-      if (match) {
-        const token = await hasUserRegistered.generateAuthToken();
+      const token = await hasUserRegistered.generateAuthToken();
 
-        res.cookie('jwt', 'helolow ljksajd');
+      if (match) {
+        // 1s = 1000ms
+        // 1m = 60s
+        // 1hr = 60m
+        // 1d = 24hr
+        // values in miliseconds
+        res.cookie('jwt', token, {
+          httpOnly: true,
+          expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
+        });
 
         res.status(200).json({
           msg: `User login successfull!!!`,
