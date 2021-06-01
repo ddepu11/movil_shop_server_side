@@ -12,13 +12,20 @@ const logIn = async (req, res) => {
     if (hasUserRegistered) {
       const match = await compare(password, hasUserRegistered.password);
 
-      match
-        ? res
-            .status(200)
-            .json({ msg: `User login successfull!!!`, user: hasUserRegistered })
-        : res.status(404).json({
-            msg: `Wrong email password combination!!!`,
-          });
+      if (match) {
+        const token = await hasUserRegistered.generateAuthToken();
+
+        console.log(token);
+
+        res.status(200).json({
+          msg: `User login successfull!!!`,
+          user: hasUserRegistered,
+        });
+      } else {
+        res.status(404).json({
+          msg: `Wrong email password combination!!!`,
+        });
+      }
     } else {
       res.status(404).json({ msg: `Wrong email password combination!!!` });
     }
