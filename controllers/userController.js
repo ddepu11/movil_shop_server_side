@@ -104,6 +104,12 @@ const isEmailRegistered = async (req, res) => {
     const user = await User.findOne({ email: email });
 
     if (user) {
+      const token = await generateAuthToken(user._id);
+      res.cookie('jwt', token, {
+        maxAge: new Date(Date.now() + 60 * 60 * 24 * 1000),
+        httpOnly: true,
+      });
+
       res.status(200).json({ user });
     } else {
       res.status(404).json({ user: 'User not found' });
