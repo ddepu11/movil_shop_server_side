@@ -95,4 +95,15 @@ const logOut = (req, res) => {
   res.json({ msg: 'User logged Out!!!' });
 };
 
-export { logIn, signUp, getAccountInfo, logOut };
+// @desc check is given  email registered?
+// @route POST /user/is-email-registered
+const isEmailRegistered = async (req, res) => {
+  const { body } = req.body;
+
+  try {
+  } catch (error) {
+    res.status(404).json({ msg: 'User not found' });
+  }
+};
+
+export { logIn, signUp, getAccountInfo, logOut, isEmailRegistered };
