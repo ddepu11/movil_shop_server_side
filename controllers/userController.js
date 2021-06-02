@@ -98,9 +98,16 @@ const logOut = (req, res) => {
 // @desc check is given  email registered?
 // @route POST /user/is-email-registered
 const isEmailRegistered = async (req, res) => {
-  const { body } = req.body;
+  const { email } = req.body;
 
   try {
+    const { data } = await User.findOne({ email: email });
+
+    if (data) {
+      res.status(200).json({ msg: 'User found successfully!' });
+    } else {
+      res.status(404).json({ msg: 'User not found' });
+    }
   } catch (error) {
     res.status(404).json({ msg: 'User not found' });
   }
