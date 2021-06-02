@@ -101,12 +101,12 @@ const isEmailRegistered = async (req, res) => {
   const { email } = req.body;
 
   try {
-    const { data } = await User.findOne({ email: email });
+    const user = await User.findOne({ email: email });
 
-    if (data) {
-      res.status(200).json({ msg: 'User found successfully!' });
+    if (user) {
+      res.status(200).json({ user });
     } else {
-      res.status(404).json({ msg: 'User not found' });
+      res.status(404).json({ user: 'User not found' });
     }
   } catch (error) {
     res.status(404).json({ msg: 'User not found' });

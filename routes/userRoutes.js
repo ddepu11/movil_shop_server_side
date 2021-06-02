@@ -18,6 +18,6 @@ router.get('/account', authenticateUser, getAccountInfo);
 
 router.get('/log-out', logOut);
 
-router.post('/user/is-email-registered', isEmailRegistered);
+router.post('/is-email-registered', isEmailRegistered);
 
 export default router;
