@@ -1,16 +1,26 @@
-import app from './app.js';
 import mongoose from 'mongoose';
+import app from './app.js';
 
 const PORT = process.env.PORT || 5000;
-const DB_URI = process.env.DB_URI;
+const { DB_URI } = process.env;
 
-await mongoose.connect(DB_URI, {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-});
+const connectToDB = async () => {
+  try {
+    await mongoose.connect(DB_URI, {
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-app.listen(PORT, () => {
-  console.log(`Server is up and running on port ${PORT}`);
-});
+connectToDB()
+  .then(() =>
+    app.listen(PORT, () => {
+      console.log(`Server is up and running on port ${PORT}`);
+    })
+  )
+  .catch(() => console.log(`Could not connect to DATABASE!!!`));

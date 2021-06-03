@@ -3,7 +3,7 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["warn", { "endOfLine": "auto" }],
-    "no-console": "off",
+    "no-console": "warn",
     "no-underscore-dangle": "off",
     "import/extensions": ["error", { "js": "always" }]
   }

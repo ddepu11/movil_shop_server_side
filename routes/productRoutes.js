@@ -1,10 +1,10 @@
-import { Router } from "express";
-import { getMobiles, createMobile } from "../controllers/productController.js";
+import { Router } from 'express';
+import { getMobiles, createMobile } from '../controllers/productController.js';
 
 const router = Router();
 
-router.get("/", getMobiles);
+router.get('/', getMobiles);
 
-router.post("/", createMobile);
+router.post('/', createMobile);
 
 export default router;
