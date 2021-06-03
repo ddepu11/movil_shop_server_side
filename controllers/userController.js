@@ -1,5 +1,5 @@
-import User from '../modals/User.js';
 import { genSalt, hash, compare } from 'bcrypt';
+import User from '../modals/User.js';
 import generateAuthToken from '../utils/generateAuthToken.js';
 
 // @desc   Handling User Log in
@@ -8,7 +8,9 @@ const logIn = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const hasUserRegistered = await User.findOne({ email: email });
+    const hasUserRegistered = await User.findOne({
+      email,
+    });
 
     if (hasUserRegistered) {
       const match = await compare(password, hasUserRegistered.password);
@@ -35,7 +37,9 @@ const logIn = async (req, res) => {
         });
       }
     } else {
-      res.status(404).json({ msg: `Wrong email password combination!!!` });
+      res.status(404).json({
+        msg: `Wrong email password combination!!!`,
+      });
     }
   } catch (err) {
     res.status(404).json({ msg: err.responce });
@@ -49,11 +53,11 @@ const signUp = async (req, res) => {
 
   try {
     // Find if email already exists
-    const doesEmailAlreadyExists = await User.findOne({ email: email });
+    const doesEmailAlreadyExists = await User.findOne({ email });
 
     // Find if email already exists
     const doesPNAlreadyExists = await User.findOne({
-      phoneNumber: phoneNumber,
+      phoneNumber,
     });
 
     // Runs When the user enters already existing credentials
@@ -75,7 +79,9 @@ const signUp = async (req, res) => {
 
       const user = new User(req.body);
       await user.save();
-      res.status(201).json({ msg: 'User registration successfull!!!' });
+      res.status(201).json({
+        msg: 'User registration successfull!!!',
+      });
     }
   } catch (err) {
     res.status(400).json({ msg: err.message });
@@ -101,7 +107,7 @@ const isEmailRegistered = async (req, res) => {
   const { email } = req.body;
 
   try {
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ email });
 
     if (user) {
       const token = await generateAuthToken(user._id);
