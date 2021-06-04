@@ -52,6 +52,7 @@ const signUp = async (req, res) => {
   const { email, phoneNumber } = req.body;
 
   console.log(req.file);
+
   try {
     // Find if email already exists
     const doesEmailAlreadyExists = await User.findOne({ email });
@@ -77,8 +78,6 @@ const signUp = async (req, res) => {
       // Password hashing
       const salt = await genSalt(10);
       req.body.password = await hash(req.body.password, salt);
-
-      // File Upload
 
       // UnComment
       // const user = new User(req.body);
