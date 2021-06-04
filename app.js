@@ -12,12 +12,12 @@ dotenv.config({ path: './config.env' });
 
 const app = express();
 
-const __filename = fileURLToPath(import.meta.url);
+const url = import.meta.url;
+const __filename = fileURLToPath(url);
 const __dirname = dirname(__filename);
-console.log(__dirname);
+
 // Middleweres
 // Morgen is a logger
-
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
