@@ -51,7 +51,6 @@ const logIn = async (req, res) => {
 const signUp = async (req, res) => {
   const { email, phoneNumber } = req.body;
 
-  console.log(req.body);
   console.log(req.file);
   try {
     // Find if email already exists

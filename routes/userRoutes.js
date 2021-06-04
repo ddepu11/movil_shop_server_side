@@ -14,7 +14,7 @@ const router = Router();
 
 router.post('/login', logIn);
 
-const upload = multer({ dest: 'public/' });
+const upload = multer({ dest: 'public/dp' });
 
 router.post('/sign-up', upload.single('dp'), signUp);
 
