@@ -79,9 +79,8 @@ const signUp = async (req, res) => {
       const salt = await genSalt(10);
       req.body.password = await hash(req.body.password, salt);
 
-      // UnComment
-      // const user = new User(req.body);
-      // await user.save();
+      const user = new User(req.body);
+      await user.save();
       res.status(201).json({
         msg: 'User registration successfull!!!',
       });
