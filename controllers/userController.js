@@ -51,6 +51,8 @@ const logIn = async (req, res) => {
 const signUp = async (req, res) => {
   const { email, phoneNumber } = req.body;
 
+  console.log(req.body);
+  console.log(req.file);
   try {
     // Find if email already exists
     const doesEmailAlreadyExists = await User.findOne({ email });
@@ -77,8 +79,11 @@ const signUp = async (req, res) => {
       const salt = await genSalt(10);
       req.body.password = await hash(req.body.password, salt);
 
-      const user = new User(req.body);
-      await user.save();
+      // File Upload
+
+      // UnComment
+      // const user = new User(req.body);
+      // await user.save();
       res.status(201).json({
         msg: 'User registration successfull!!!',
       });
