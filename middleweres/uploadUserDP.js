@@ -4,13 +4,14 @@ const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'public/dp');
   },
+
   filename: (req, file, cb) => {
     const ext = file.mimetype.split('/')[1];
 
     const fileName = `user_${file.fieldname}_${Math.floor(
       Math.random() * 1000
     )}_${Date.now()}.${ext}`;
-    req.fileName = fileName;
+
     cb(null, fileName);
   },
 });
