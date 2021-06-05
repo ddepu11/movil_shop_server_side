@@ -31,6 +31,11 @@ const userSchema = new Schema(
       isRequired: false,
       default: 'USER',
     },
+    displayPicture: {
+      type: String,
+      default: 'displayPicture.png',
+      isRequired: false,
+    },
   },
   { timestamps: true }
 );
