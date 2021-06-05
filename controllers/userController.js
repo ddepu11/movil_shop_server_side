@@ -50,9 +50,7 @@ const logIn = async (req, res) => {
 // @route  POST  /user/sign-up
 const signUp = async (req, res) => {
   const { email, phoneNumber } = req.body;
-
-  console.log(req.file);
-
+  console.log(req.fileName);
   try {
     // Find if email already exists
     const doesEmailAlreadyExists = await User.findOne({ email });

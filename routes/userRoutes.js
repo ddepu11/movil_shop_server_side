@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import multer from 'multer';
 import {
   logIn,
   signUp,
@@ -9,14 +8,13 @@ import {
 } from '../controllers/userController.js';
 import authenticateUser from '../middleweres/authenticateUser.js';
 // import fileUpload from '../middleweres/fileUpload.js';
+import uploadUserDP from '../middleweres/uploadUserDP.js';
 
 const router = Router();
 
 router.post('/login', logIn);
 
-const upload = multer({ dest: 'public/dp' });
-
-router.post('/sign-up', upload.single('dp'), signUp);
+router.post('/sign-up', uploadUserDP, signUp);
 
 router.get('/account', authenticateUser, getAccountInfo);
 
