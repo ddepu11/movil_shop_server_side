@@ -36,6 +36,10 @@ const userSchema = new Schema(
       default: 'displayPicture.png',
       isRequired: false,
     },
+    gender: {
+      type: String,
+      isRequired: true,
+    },
   },
   { timestamps: true }
 );
