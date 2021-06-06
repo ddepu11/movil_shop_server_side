@@ -2,6 +2,15 @@ import { genSalt, hash, compare } from 'bcrypt';
 import User from '../modals/User.js';
 import generateAuthToken from '../utils/generateAuthToken.js';
 
+const authUser = async (req, res) => {
+  res.status(200).json({
+    user: {
+      firstName: req.userInfo.firstName,
+      lastName: req.userInfo.lastName,
+    },
+  });
+};
+
 // @desc   Handling User Log in
 // @route  POST  /user/login
 const logIn = async (req, res) => {
@@ -77,12 +86,12 @@ const signUp = async (req, res) => {
       const salt = await genSalt(10);
       req.body.password = await hash(req.body.password, salt);
 
-      // const user = new User({
-      //   ...req.body,
-      //   displayPicture: req.file.filename.trim(),
-      // });
+      const user = new User({
+        ...req.body,
+        displayPicture: req.file.filename.trim(),
+      });
 
-      // await user.save();
+      await user.save();
 
       res.status(201).json({
         msg: 'User registration successfull!!!',
@@ -130,4 +139,4 @@ const isEmailRegistered = async (req, res) => {
   }
 };
 
-export { logIn, signUp, getAccountInfo, logOut, isEmailRegistered };
+export { logIn, signUp, getAccountInfo, logOut, isEmailRegistered, authUser };

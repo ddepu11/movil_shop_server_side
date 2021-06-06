@@ -5,6 +5,7 @@ import {
   getAccountInfo,
   logOut,
   isEmailRegistered,
+  authUser,
 } from '../controllers/userController.js';
 import authenticateUser from '../middleweres/authenticateUser.js';
 // import fileUpload from '../middleweres/fileUpload.js';
@@ -21,5 +22,7 @@ router.get('/account', authenticateUser, getAccountInfo);
 router.get('/log-out', logOut);
 
 router.post('/is-email-registered', isEmailRegistered);
+
+router.get('/authenticate', authenticateUser, authUser);
 
 export default router;
