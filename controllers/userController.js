@@ -139,4 +139,28 @@ const isEmailRegistered = async (req, res) => {
   }
 };
 
-export { logIn, signUp, getAccountInfo, logOut, isEmailRegistered, authUser };
+// @desc Update user information
+// @route POST /user/update
+const updateUserInfo = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.userId, req.body);
+
+    if (user) {
+      res.status(200).json({ user });
+    } else {
+      res.status(404).json({ msg: 'Could not update user!!' });
+    }
+  } catch (err) {
+    res.status(400).json({ msg: err.msg });
+  }
+};
+
+export {
+  logIn,
+  signUp,
+  getAccountInfo,
+  logOut,
+  isEmailRegistered,
+  authUser,
+  updateUserInfo,
+};
