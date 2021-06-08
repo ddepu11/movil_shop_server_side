@@ -145,8 +145,8 @@ const updateUserInfo = async (req, res) => {
   const userID = req.userId;
 
   try {
-    const oldPWD = req.userInfo.password;
-    const newPWD = req.body.password;
+    const oldPWD = req.userInfo.password.trim();
+    const newPWD = req.body.password.trim();
 
     if (oldPWD === newPWD) {
       // When password is same
@@ -158,8 +158,17 @@ const updateUserInfo = async (req, res) => {
 
       res.json({ user: updatedUser });
     } else {
-      // When Password was changed
-      res.json({ msg: 'User is UpdatedPassword changed' });
+      // When Password is changed we need to hash it
+      const salt = await genSalt(10);
+      req.body.password = await hash(newPWD, salt);
+
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: userID },
+        req.body,
+        { new: true }
+      );
+
+      res.json({ user: updatedUser });
     }
   } catch (err) {
     res.status(404).json({ msg: err.msg });
