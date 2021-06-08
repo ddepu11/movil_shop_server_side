@@ -142,16 +142,27 @@ const isEmailRegistered = async (req, res) => {
 // @desc Update user information
 // @route POST /user/update
 const updateUserInfo = async (req, res) => {
-  try {
-    const user = await User.findByIdAndUpdate(req.userId, req.body);
+  const userID = req.userId;
 
-    if (user) {
-      res.status(200).json({ user });
+  try {
+    const oldPWD = req.userInfo.password;
+    const newPWD = req.body.password;
+
+    if (oldPWD === newPWD) {
+      // When password is same
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: userID },
+        req.body,
+        { new: true }
+      );
+
+      res.json({ user: updatedUser });
     } else {
-      res.status(404).json({ msg: 'Could not update user!!' });
+      // When Password was changed
+      res.json({ msg: 'User is UpdatedPassword changed' });
     }
   } catch (err) {
-    res.status(400).json({ msg: err.msg });
+    res.status(404).json({ msg: err.msg });
   }
 };
 
