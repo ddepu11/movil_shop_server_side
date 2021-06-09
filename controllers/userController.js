@@ -175,6 +175,15 @@ const updateUserInfo = async (req, res) => {
   }
 };
 
+// @desc Change user pic
+// @route POST /user/change-dp
+const changeDisplayPicture = async (req, res) => {
+  try {
+  } catch (err) {
+    res.status(404).json({ msg: err.msg });
+  }
+};
+
 export {
   logIn,
   signUp,
@@ -183,4 +192,5 @@ export {
   isEmailRegistered,
   authUser,
   updateUserInfo,
+  changeDisplayPicture,
 };

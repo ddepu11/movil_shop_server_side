@@ -7,6 +7,7 @@ import {
   isEmailRegistered,
   authUser,
   updateUserInfo,
+  changeDisplayPicture,
 } from '../controllers/userController.js';
 import authenticateUser from '../middleweres/authenticateUser.js';
 // import fileUpload from '../middleweres/fileUpload.js';
@@ -27,5 +28,7 @@ router.post('/is-email-registered', isEmailRegistered);
 router.get('/authenticate', authenticateUser, authUser);
 
 router.post('/update', authenticateUser, updateUserInfo);
+
+router.post('/change-dp', authenticateUser, uploadUserDP, changeDisplayPicture);
 
 export default router;
