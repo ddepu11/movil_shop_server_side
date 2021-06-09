@@ -1,4 +1,5 @@
 import { genSalt, hash, compare } from 'bcrypt';
+import fs from 'fs/promises';
 import User from '../modals/User.js';
 import generateAuthToken from '../utils/generateAuthToken.js';
 
@@ -179,6 +180,18 @@ const updateUserInfo = async (req, res) => {
 // @route POST /user/change-dp
 const changeDisplayPicture = async (req, res) => {
   try {
+    const prevDpName = req.userInfo.displayPicture;
+    const newDpName = req.file.filename;
+
+    await fs.unlink(`public/dp/${prevDpName}`);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      { _id: req.userId },
+      { displayPicture: newDpName },
+      { new: true }
+    );
+
+    res.status(200).json({ updatedUser });
   } catch (err) {
     res.status(404).json({ msg: err.msg });
   }
