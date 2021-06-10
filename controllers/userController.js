@@ -146,33 +146,49 @@ const updateUserInfo = async (req, res) => {
   const userID = req.userId;
 
   try {
-    const oldPWD = req.userInfo.password.trim();
-    const newPWD = req.body.password.trim();
+    const { email, phoneNumber } = req.body;
 
-    if (oldPWD === newPWD) {
-      // When password is same
-      const updatedUser = await User.findByIdAndUpdate(
-        { _id: userID },
-        req.body,
-        { new: true }
-      );
+    const doesEmailAlreadyExists = await User.findOne({ email });
 
-      res.json({ user: updatedUser });
+    const doesPhoneNumberAlreadyExists = await User.findOne({ phoneNumber });
+
+    if (doesEmailAlreadyExists) {
+      res
+        .status(409)
+        .json({ msg: 'This Email is already being used by someone else!!!' });
+    } else if (doesPhoneNumberAlreadyExists) {
+      res.status(409).json({
+        msg: 'This phone number is already being used by someone else!!!',
+      });
     } else {
-      // When Password is changed we need to hash it
-      const salt = await genSalt(10);
-      req.body.password = await hash(newPWD, salt);
+      const oldPWD = req.userInfo.password.trim();
+      const newPWD = req.body.password.trim();
 
-      const updatedUser = await User.findByIdAndUpdate(
-        { _id: userID },
-        req.body,
-        { new: true }
-      );
+      if (oldPWD === newPWD) {
+        // When password is same
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: userID },
+          req.body,
+          { new: true }
+        );
 
-      res.json({ user: updatedUser });
+        res.json({ user: updatedUser });
+      } else {
+        // When Password is changed we need to hash it
+        const salt = await genSalt(10);
+        req.body.password = await hash(newPWD, salt);
+
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: userID },
+          req.body,
+          { new: true }
+        );
+
+        res.json({ user: updatedUser });
+      }
     }
   } catch (err) {
-    res.status(404).json({ msg: err.msg });
+    res.status(404).json({ msg: err.message });
   }
 };
 
