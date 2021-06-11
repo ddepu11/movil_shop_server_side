@@ -86,10 +86,11 @@ const signUp = async (req, res) => {
       // Password hashing
       const salt = await genSalt(10);
       req.body.password = await hash(req.body.password, salt);
+      const dpName = req.body.gender === 'male' ? 'maleDP.png' : 'femaleDP.png';
 
       const user = new User({
         ...req.body,
-        displayPicture: req.file.filename.trim(),
+        displayPicture: req.file ? req.file.filename.trim() : dpName,
       });
 
       await user.save();
@@ -99,6 +100,7 @@ const signUp = async (req, res) => {
       });
     }
   } catch (err) {
+    console.log(err.message);
     res.status(400).json({ msg: err.message });
   }
 };
