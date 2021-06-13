@@ -52,7 +52,7 @@ const logIn = async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(404).json({ msg: err.responce });
+    res.status(404).json({ msg: err.response });
   }
 };
 
