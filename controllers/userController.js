@@ -4,11 +4,7 @@ import User from '../modals/User.js';
 import generateAuthToken from '../utils/generateAuthToken.js';
 
 const authUser = async (req, res) => {
-  const { firstName, lastName, role } = req.userInfo;
-
-  res.status(200).json({
-    user: { firstName, lastName, role },
-  });
+  res.status(200).json({ user: req.userInfo });
 };
 
 // @desc   Handling User Log in
