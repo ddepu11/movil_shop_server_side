@@ -7,27 +7,59 @@ const mobileSchema = new mongoose.Schema(
       isRequired: true,
       unique: true,
     },
+
     price: {
       type: Number,
       isRequired: true,
     },
+
     brand: {
       type: String,
       isRequired: true,
     },
+
     stars: {
       type: Number,
       default: 0,
+      isRequired: false,
     },
+
     internalMemory: {
       type: Number,
       isRequired: true,
     },
+
+    ram: {
+      type: String,
+      isRequired: true,
+    },
+
+    os: {
+      type: String,
+      default: 'Android',
+    },
+
+    battery: {
+      type: String,
+      isRequired: true,
+    },
+
+    processor: {
+      type: String,
+      isRequired: true,
+    },
+
+    camera: {
+      type: String,
+      isRequired: true,
+    },
+
     colors: {
       type: Array,
       isRequired: true,
     },
   },
+
   { timestamps: true }
 );
 
