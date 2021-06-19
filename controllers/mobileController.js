@@ -11,10 +11,12 @@ const getMobiles = (req, res) => {
 const createMobile = async (req, res) => {
   try {
     const mobile = new Mobile(req.body);
+
     await mobile.save();
-    res.json({ msg: 'Created a product', body: req.body });
+
+    res.status(200).json({ mobile });
   } catch (error) {
-    res.status(400).json({ msg: 'could not save the product.' });
+    res.status(404).json({ msg: 'Could not save the product' });
   }
 };
 

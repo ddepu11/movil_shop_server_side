@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import products from './routes/productRoutes.js';
+import mobile from './routes/mobileRoutes.js';
 import user from './routes/userRoutes.js';
 
 dotenv.config({ path: './config.env' });
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Routes for products
-app.use('/products', products);
+app.use('/mobile', mobile);
 
 // Routes for user
 app.use('/user', user);
