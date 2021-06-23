@@ -27,9 +27,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Routes for products
-app.use('/mobile', mobile);
+app.use('/mobiles', mobile);
 
 // Routes for user
-app.use('/user', user);
+app.use('/users', user);
 
 export default app;

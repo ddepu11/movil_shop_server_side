@@ -1,34 +1,34 @@
 import { Router } from 'express';
 import {
-  logIn,
+  signIn,
   signUp,
   getAccountInfo,
   logOut,
-  isEmailRegistered,
+  doesUserExists,
   authUser,
   updateUserInfo,
   changeDisplayPicture,
 } from '../controllers/userController.js';
+
 import authenticateUser from '../middleweres/authenticateUser.js';
-// import fileUpload from '../middleweres/fileUpload.js';
 import uploadUserDP from '../middleweres/uploadUserDP.js';
 
 const router = Router();
 
-router.post('/login', logIn);
+router.post('/sign-in', signIn);
 
 router.post('/sign-up', uploadUserDP, signUp);
 
-router.get('/account', authenticateUser, getAccountInfo);
+router.get('/account-info', authenticateUser, getAccountInfo);
 
 router.get('/log-out', logOut);
 
-router.post('/is-email-registered', isEmailRegistered);
+router.post('/exists', doesUserExists);
 
 router.get('/authenticate', authenticateUser, authUser);
 
-router.post('/update', authenticateUser, updateUserInfo);
+router.put('/:id', authenticateUser, updateUserInfo);
 
-router.post('/change-dp', authenticateUser, uploadUserDP, changeDisplayPicture);
+router.put('/:id/dp', authenticateUser, uploadUserDP, changeDisplayPicture);
 
 export default router;

@@ -9,7 +9,7 @@ const authUser = async (req, res) => {
 
 // @desc   Handling User Log in
 // @route  POST  /user/login
-const logIn = async (req, res) => {
+const signIn = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -34,7 +34,7 @@ const logIn = async (req, res) => {
         });
 
         res.status(200).json({
-          msg: `User login successfull!!!`,
+          msg: `User sign in successfull!!!`,
         });
       } else {
         res.status(404).json({
@@ -95,7 +95,6 @@ const signUp = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err.message);
     res.status(400).json({ msg: err.message });
   }
 };
@@ -115,7 +114,7 @@ const logOut = (req, res) => {
 
 // @desc check is given  email registered?
 // @route POST /user/is-email-registered
-const isEmailRegistered = async (req, res) => {
+const doesUserExists = async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -138,9 +137,9 @@ const isEmailRegistered = async (req, res) => {
 };
 
 // @desc Update user information
-// @route POST /user/update
+// @route POST /user/:id
 const updateUserInfo = async (req, res) => {
-  const userID = req.userId;
+  const userID = req.params.id;
 
   try {
     const { email, phoneNumber } = req.body;
@@ -192,33 +191,39 @@ const updateUserInfo = async (req, res) => {
 // @desc Change user pic
 // @route POST /user/change-dp
 const changeDisplayPicture = async (req, res) => {
+  const { id } = req.params;
+
   try {
     const prevDpName = req.userInfo.displayPicture;
     const newDpName = req.file.filename;
-
     // Dont remove default images
     if (prevDpName !== 'femaleDP.png' && prevDpName !== 'maleDP.png') {
-      await fs.unlink(`public/dp/${prevDpName}`);
+      fs.access(`public/dp/${prevDpName}`)
+        .then(async () => {
+          await fs.unlink(`public/dp/${prevDpName}`);
+        })
+        .catch(() => {});
     }
 
     const updatedUser = await User.findByIdAndUpdate(
-      { _id: req.userId },
+      { _id: id },
       { displayPicture: newDpName },
       { new: true }
     );
 
     res.status(200).json({ updatedUser });
   } catch (err) {
+    console.log(err.message);
     res.status(404).json({ msg: err.msg });
   }
 };
 
 export {
-  logIn,
+  signIn,
   signUp,
   getAccountInfo,
   logOut,
-  isEmailRegistered,
+  doesUserExists,
   authUser,
   updateUserInfo,
   changeDisplayPicture,

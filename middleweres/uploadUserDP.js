@@ -7,10 +7,13 @@ const multerStorage = multer.diskStorage({
 
   filename: (req, file, cb) => {
     const ext = file.mimetype.split('/')[1];
+    const { fieldname, originalname } = file;
 
-    const fileName = `user_${file.fieldname}_${Math.floor(
-      Math.random() * 1000
-    )}_${Date.now()}.${ext}`;
+    const on = originalname.split('.')[0];
+
+    const fileName = `user_${fieldname}_${on}_${Math.floor(
+      Math.random() * Date.now()
+    )}.${ext}`;
 
     cb(null, fileName);
   },
