@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import swaggerUI from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import mobile from './routes/mobileRoutes.js';
@@ -10,7 +12,36 @@ import user from './routes/userRoutes.js';
 
 dotenv.config({ path: './config.env' });
 
+const options = {
+  definition: {
+    openapi: '3.0.0',
+
+    info: {
+      title: 'MovilShop Express API',
+
+      version: '1.0.0',
+
+      description:
+        'This is a simple CRUD API Application made with Express and documented with Swagger',
+
+      contact: {
+        name: 'Deepanshu Tiwari',
+        url: 'https://ddepu11.github.io/PortFolio__Website/',
+        email: 'ddepu11@gmail.com',
+      },
+    },
+
+    servers: [{ url: 'http://localhost:5000' }],
+  },
+
+  apis: ['./routes/*.js'],
+};
+
+const specs = swaggerJsDoc(options);
+
 const app = express();
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 const url = import.meta.url;
 const __filename = fileURLToPath(url);

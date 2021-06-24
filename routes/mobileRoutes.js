@@ -3,7 +3,7 @@ import { getMobiles, createMobile } from '../controllers/mobileController.js';
 
 const router = Router();
 
-router.get('/all', getMobiles);
+router.get('/', getMobiles);
 
 router.post('/create', createMobile);
 
