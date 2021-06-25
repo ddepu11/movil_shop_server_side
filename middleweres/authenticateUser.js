@@ -20,6 +20,7 @@ const authenticateUser = async (req, res, next) => {
     } catch (err) {
       res.status(401).json({ msg: 'Unautherized user!!!' });
     }
+    
   } else {
     res.status(401).json({ msg: 'Unautherized user!!!' });
   }

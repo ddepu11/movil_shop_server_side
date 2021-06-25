@@ -42,11 +42,9 @@ const router = Router();
  *         application/json:
  *           schema:
  *             type: object
- *
  *             required:
  *             - email
  *             - password
- *
  *             properties:
  *               email:
  *                 type: string
@@ -74,6 +72,72 @@ const router = Router();
  */
 
 router.post('/sign-in', signIn);
+
+/**
+ * @swagger
+ * /users/sign-up:
+ *   post:
+ *     summary: Signs up the user
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *             - firstName
+ *             - lastName
+ *             - phoneNumber
+ *             - gender
+ *             - email
+ *             - password
+ *             - confirmPassword
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *                 required: true
+ *               lastName:
+ *                 type: string
+ *                 required: true
+ *               phoneNumber:
+ *                 type: string
+ *                 required: true
+ *               gender:
+ *                 type: string
+ *                 required: true
+ *               email:
+ *                 type: string
+ *                 required: true
+ *               password:
+ *                 type: string
+ *                 required: true
+ *               confirmPassword:
+ *                 type: string
+ *                 required: true
+ *               role:
+ *                 type: string
+ *               dp:
+ *                 type: file
+ *                 required: true
+ *     responses:
+ *       201:
+ *         description: Successful sign up
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserSuccess'
+ *       409:
+ *         description: User already registered
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserSuccess'
+ *       400:
+ *         description: Unsuccessfull sign up
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserSuccess'
+ */
 
 router.post('/sign-up', uploadUserDP, signUp);
 
