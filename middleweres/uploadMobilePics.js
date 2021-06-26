@@ -1,15 +1,19 @@
 import multer from 'multer';
 import fs from 'fs';
+import mkdirp from 'mkdirp';
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    fs.access(`public/sellers/${req.userEmail}`, (err) => {
+    const { email } = req.userInfo;
+    const { title, os, price, processor } = req.body;
+
+    const fileSrc = `public/sellers/${email}/${title}_${os}_${price}_${processor}`;
+
+    fs.access(fileSrc, (err) => {
       if (err) {
-        fs.mkdir(`public/sellers/${req.userEmail}`, () => {
-          cb(null, `public/sellers/${req.userEmail}`);
-        });
+        mkdirp(fileSrc).then(() => cb(null, fileSrc));
       } else {
-        cb(null, `public/sellers/${req.userEmail}`);
+        cb(null, fileSrc);
       }
     });
   },

@@ -196,6 +196,7 @@ const changeDisplayPicture = async (req, res) => {
   try {
     const prevDpName = req.userInfo.displayPicture;
     const newDpName = req.file.filename;
+
     // Dont remove default images
     if (prevDpName !== 'femaleDP.png' && prevDpName !== 'maleDP.png') {
       fs.access(`public/dp/${prevDpName}`)

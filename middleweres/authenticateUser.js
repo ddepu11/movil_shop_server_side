@@ -13,7 +13,6 @@ const authenticateUser = async (req, res, next) => {
       if (user) {
         req.userInfo = user._doc;
         req.userId = _id;
-        req.userEmail = user.email;
       } else {
         throw new Error('User not found');
       }

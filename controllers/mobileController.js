@@ -9,10 +9,15 @@ const getMobiles = (req, res) => {
 // @desc   Save a mobile data
 // @route  POST  products/
 const createMobile = async (req, res) => {
-  const fileNames = req.files.map((e) => e.filename);
+  const pictures = req.files.map((e) => e.filename);
+  const colors = req.body.colors.split(',');
 
   try {
-    const mobile = new Mobile({ ...req.body, pictures: [...fileNames] });
+    const mobile = new Mobile({
+      ...req.body,
+      pictures,
+      colors,
+    });
 
     await mobile.save();
 
