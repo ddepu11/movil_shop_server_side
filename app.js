@@ -57,10 +57,10 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Routes for products
-app.use('/mobiles', mobile);
-
 // Routes for user
 app.use('/users', user);
+
+// Routes for mobiles
+app.use('/mobiles', mobile);
 
 export default app;

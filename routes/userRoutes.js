@@ -20,6 +20,19 @@ const router = Router();
  * @swagger
  * components:
  *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *       - _id
+ *       - firstName
+ *       - lastName
+ *       - phoneNumber
+ *       - email
+ *       - password
+ *       - confirmPassword
+ *       - role
+ *       - gender
+ *       - displayPicture
  *     UserSuccess:
  *       type: object
  *       required:
@@ -63,6 +76,10 @@ const router = Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/UserSuccess'
+ *         headers:
+ *           set-cookie:
+ *             type: string
+ *             description: jwt cookie for auth
  *       404:
  *         description: Unsuccessfull login
  *         content:
@@ -140,6 +157,33 @@ router.post('/sign-in', signIn);
  */
 
 router.post('/sign-up', uploadUserDP, signUp);
+/**
+ * @swagger
+ * /users/account-info:
+ *   get:
+ *     summary: get account info
+ *     parameters:
+ *       - name: Cookie
+ *         in: Cookie
+ *         schema:
+ *           type: string
+ *           example:
+ *            jwt:jkjsia87s8asu676jh.ia7s87as8iha87we.kosa88a8
+ *
+ *     responses:
+ *       200:
+ *         description: Successfully get user info
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserSuccess'
+ *       401:
+ *         description: Unautherized user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserSuccess'
+ */
 
 router.get('/account-info', authenticateUser, getAccountInfo);
 

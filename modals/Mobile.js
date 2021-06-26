@@ -36,7 +36,7 @@ const mobileSchema = new mongoose.Schema(
 
     os: {
       type: String,
-      default: 'Android',
+      isRequired: true,
     },
 
     battery: {
@@ -55,6 +55,11 @@ const mobileSchema = new mongoose.Schema(
     },
 
     colors: {
+      type: Array,
+      isRequired: true,
+    },
+
+    pictures: {
       type: Array,
       isRequired: true,
     },

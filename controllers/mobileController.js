@@ -9,12 +9,14 @@ const getMobiles = (req, res) => {
 // @desc   Save a mobile data
 // @route  POST  products/
 const createMobile = async (req, res) => {
+  const fileNames = req.files.map((e) => e.filename);
+
   try {
-    const mobile = new Mobile(req.body);
+    const mobile = new Mobile({ ...req.body, pictures: [...fileNames] });
 
     await mobile.save();
 
-    res.status(200).json({ mobile });
+    res.status(200).json({ msg: 'Some message' });
   } catch (error) {
     res.status(404).json({ msg: 'Could not save the product' });
   }
