@@ -22,7 +22,8 @@ const createMobile = async (req, res) => {
     await mobile.save();
 
     res.status(200).json({ msg: 'Some message' });
-  } catch (error) {
+  } catch (err) {
+    console.log(err);
     res.status(404).json({ msg: 'Could not save the product' });
   }
 };

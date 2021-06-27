@@ -35,6 +35,7 @@ const signIn = async (req, res) => {
 
         res.status(200).json({
           msg: `User sign in successfull!!!`,
+          user: hasUserRegistered,
         });
       } else {
         res.status(404).json({
@@ -54,6 +55,8 @@ const signIn = async (req, res) => {
 // @desc   Handling User Sign Up
 // @route  POST  /user/sign-up
 const signUp = async (req, res) => {
+  req.body.phoneNumber = +req.body.phoneNumber;
+
   const { email, phoneNumber } = req.body;
 
   try {

@@ -63,6 +63,12 @@ const mobileSchema = new mongoose.Schema(
       type: Array,
       isRequired: true,
     },
+
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      isRequired: true,
+    },
   },
 
   { timestamps: true }

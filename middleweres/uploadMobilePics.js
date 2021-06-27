@@ -4,10 +4,10 @@ import mkdirp from 'mkdirp';
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const { email } = req.userInfo;
+    const { _id } = req.userInfo;
     const { title, os, price, processor } = req.body;
 
-    const fileSrc = `public/sellers/${email}/${title}_${os}_${price}_${processor}`;
+    const fileSrc = `public/sellers/${_id}/${title}_${os}_${price}_${processor}`;
 
     fs.access(fileSrc, (err) => {
       if (err) {
