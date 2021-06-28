@@ -64,7 +64,7 @@ const mobileSchema = new mongoose.Schema(
       isRequired: true,
     },
 
-    userId: {
+    sellerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       isRequired: true,

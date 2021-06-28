@@ -7,6 +7,7 @@ import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import mobile from './routes/mobileRoutes.js';
 import user from './routes/userRoutes.js';
+import seller from './routes/sellerRoutes.js';
 
 dotenv.config({ path: './config.env' });
 
@@ -57,5 +58,7 @@ app.use('/users', user);
 
 // Routes for mobiles
 app.use('/mobiles', mobile);
+
+app.use('/sellers', seller);
 
 export default app;

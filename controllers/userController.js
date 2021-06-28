@@ -8,7 +8,7 @@ const authUser = async (req, res) => {
 };
 
 // @desc   Handling User Log in
-// @route  POST  /user/login
+// @route  POST  /users/sign-in
 const signIn = async (req, res) => {
   const { email, password } = req.body;
 
