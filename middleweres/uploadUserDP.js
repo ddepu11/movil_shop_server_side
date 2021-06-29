@@ -8,7 +8,6 @@ const multerStorage = multer.diskStorage({
   filename: (req, file, cb) => {
     const ext = file.mimetype.split('/')[1];
     const { fieldname, originalname } = file;
-
     const on = originalname.split('.')[0];
 
     const fileName = `user_${fieldname}_${on}_${Math.floor(

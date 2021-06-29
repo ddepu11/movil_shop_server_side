@@ -19,15 +19,12 @@ const multerStorage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    const { fieldname, originalname, mimetype } = file;
+    const { originalname, mimetype } = file;
 
     const fName = originalname.split('.')[0];
     const ext = mimetype.split('/')[1];
 
-    cb(
-      null,
-      `${fName}_${fieldname}_${Math.floor(Math.random() * Date.now())}.${ext}`
-    );
+    cb(null, `${fName}_${Math.floor(Math.random() * Date.now())}.${ext}`);
   },
 });
 

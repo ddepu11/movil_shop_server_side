@@ -1,6 +1,7 @@
+import fs from 'fs';
 import Mobile from '../modals/Mobile.js';
 
-const getSellerMobiles = async (req, res) => {
+export const getSellerMobiles = async (req, res) => {
   const { sellerId } = req.params;
 
   console.log(sellerId);
@@ -18,4 +19,30 @@ const getSellerMobiles = async (req, res) => {
     res.status(404).json({ msg: err.message });
   }
 };
-export default getSellerMobiles;
+
+export const deleteSellerMobile = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const mobile = await Mobile.findByIdAndDelete(id);
+
+    if (mobile) {
+      const folder = `public/sellers/${mobile.sellerId}/${mobile.title}_${mobile.os}_${mobile.price}_${mobile.processor}`;
+
+      //
+      fs.readdir(folder, (err1, files) => {
+        files.forEach((p) => {
+          fs.unlink(`${folder}/${p}`, (err2) => {
+            if (err2) console.log(err2);
+          });
+        });
+      });
+
+      res.status(200).json({ msg: 'Successfully deleted a mobile' });
+    } else {
+      res.status(404).json({ msg: 'Could not delete a mobile' });
+    }
+  } catch (err) {
+    res.status(404).json({ msg: err.message });
+  }
+};
