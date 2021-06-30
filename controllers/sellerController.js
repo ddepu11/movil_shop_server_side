@@ -27,14 +27,13 @@ export const deleteSellerMobile = async (req, res) => {
     const mobile = await Mobile.findByIdAndDelete(id);
 
     if (mobile) {
-      const folder = `public/sellers/${mobile.sellerId}/${mobile.title}_${mobile.os}_${mobile.price}_${mobile.processor}`;
+      const folder = `public/sellers/${mobile.sellerId}/`;
 
-      //
-      fs.readdir(folder, (err1, files) => {
-        files.forEach((p) => {
-          fs.unlink(`${folder}/${p}`, (err2) => {
-            if (err2) console.log(err2);
-          });
+      mobile.pictures.forEach((p) => {
+        fs.access(`${folder}/${p}`, (err) => {
+          if (!err) {
+            fs.unlink(`${folder}/${p}`, () => {});
+          }
         });
       });
 
@@ -44,5 +43,23 @@ export const deleteSellerMobile = async (req, res) => {
     }
   } catch (err) {
     res.status(404).json({ msg: err.message });
+  }
+};
+
+export const updateSellerMobile = async (req, res) => {
+  const { mobileId: id } = req.params;
+
+  try {
+    const mobile = await Mobile.findByIdAndUpdate({ _id: id }, req.body, {
+      new: true,
+    });
+
+    if (mobile) {
+      res.status(200).json({ mobile });
+    } else {
+      res.status(404).json({ msg: 'Could not update the mobile!' });
+    }
+  } catch (err) {
+    res.json(404).json({ msg: err.message });
   }
 };
