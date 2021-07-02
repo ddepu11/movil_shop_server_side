@@ -7,6 +7,6 @@ const router = Router();
 
 router.get('/', getMobiles);
 
-router.post('/create', authenticateUser, uploadMobilePics, createMobile);
+router.post('/', authenticateUser, uploadMobilePics, createMobile);
 
 export default router;

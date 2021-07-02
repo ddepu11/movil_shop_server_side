@@ -1,13 +1,23 @@
 import Mobile from '../modals/Mobile.js';
 
 // @desc   Get all the mobile data as JSON
-// @route  GET  products/
-const getMobiles = (req, res) => {
-  res.json({ msg: 'All the products' });
+// @route  GET  mobiles/
+const getMobiles = async (req, res) => {
+  try {
+    const mobiles = await Mobile.find({});
+
+    if (mobiles) {
+      res.status(200).json({ mobiles });
+    } else {
+      res.status(200).json({ msg: 'Sorry could not fetch the data!!!' });
+    }
+  } catch (err) {
+    res.status(404).json({ msg: err.message });
+  }
 };
 
 // @desc   Save a mobile data
-// @route  POST  products/
+// @route  POST  mobiles/
 const createMobile = async (req, res) => {
   const pictures = req.files.map((e) => e.filename);
   const colors = req.body.colors.split(',');
