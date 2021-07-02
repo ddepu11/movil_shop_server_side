@@ -12,18 +12,21 @@ const createMobile = async (req, res) => {
   const pictures = req.files.map((e) => e.filename);
   const colors = req.body.colors.split(',');
 
+  const { sellerId, sellerEmail, sellerName, ...body } = req.body;
+
   try {
     const mobile = new Mobile({
-      ...req.body,
+      ...body,
       pictures,
       colors,
+      brand: req.body.brand.toLowerCase(),
+      sellerInfo: { id: sellerId, name: sellerName, email: sellerEmail },
     });
 
     await mobile.save();
 
     res.status(200).json({ msg: 'Some message' });
   } catch (err) {
-    console.log(err);
     res.status(404).json({ msg: 'Could not save the product' });
   }
 };

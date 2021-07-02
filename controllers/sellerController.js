@@ -4,10 +4,8 @@ import Mobile from '../modals/Mobile.js';
 export const getSellerMobiles = async (req, res) => {
   const { sellerId } = req.params;
 
-  console.log(sellerId);
-
   try {
-    const mobiles = await Mobile.find({ sellerId });
+    const mobiles = await Mobile.find({ 'sellerInfo.id': sellerId });
 
     if (mobiles && mobiles.length !== 0) {
       res.status(202).json({ mobiles });
@@ -27,7 +25,7 @@ export const deleteSellerMobile = async (req, res) => {
     const mobile = await Mobile.findByIdAndDelete(id);
 
     if (mobile) {
-      const folder = `public/sellers/${mobile.sellerId}/`;
+      const folder = `public/sellers/${mobile.sellerInfo.id}/`;
 
       mobile.pictures.forEach((p) => {
         fs.access(`${folder}/${p}`, (err) => {

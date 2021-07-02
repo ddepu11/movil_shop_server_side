@@ -69,6 +69,22 @@ const mobileSchema = new mongoose.Schema(
       ref: 'User',
       isRequired: true,
     },
+
+    sellerInfo: {
+      name: { type: String },
+      email: { type: String },
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        isRequired: true,
+      },
+    },
+
+    movilShopAssured: {
+      type: Boolean,
+      isRequired: false,
+      default: false,
+    },
   },
 
   { timestamps: true }
