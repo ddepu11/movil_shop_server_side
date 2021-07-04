@@ -41,4 +41,20 @@ const createMobile = async (req, res) => {
   }
 };
 
-export { getMobiles, createMobile };
+const getMobile = async (req, res) => {
+  const { mobileId } = req.params;
+
+  try {
+    const mobile = await Mobile.findOne({ _id: mobileId });
+
+    if (mobile) {
+      res.status(200).json({ mobile });
+    } else {
+      res.status(404).json({ msg: 'Could not fetch mobile!' });
+    }
+  } catch (err) {
+    res.status(404).json({ msg: err.message });
+  }
+};
+
+export { getMobiles, createMobile, getMobile };
