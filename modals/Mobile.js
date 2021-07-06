@@ -33,6 +33,11 @@ const mobileSchema = new mongoose.Schema(
       },
     ],
 
+    avgStar: {
+      type: Number,
+      isRequired: false,
+    },
+
     internalMemory: {
       type: Number,
       isRequired: true,
@@ -98,6 +103,11 @@ const mobileSchema = new mongoose.Schema(
 
   { timestamps: true }
 );
+
+mobileSchema.post('findOneAndUpdate', async function () {
+  const updatedDoc = await this.model.findOne(this.getQuery());
+  console.log({ updatedDoc });
+});
 
 const Mobile = mongoose.model('Mobile', mobileSchema);
 

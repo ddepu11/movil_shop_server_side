@@ -6,6 +6,13 @@
     "prettier/prettier": ["warn", { "endOfLine": "auto" }],
     "no-console": "warn",
     "no-underscore-dangle": "off",
-    "import/extensions": ["error", { "js": "always" }]
+    "import/extensions": ["error", { "js": "always" }],
+
+    "prefer-arrow-callback": [
+      {
+        "allowNamedFunctions": false,
+        "allowUnboundThis": true
+      }
+    ]
   }
 }
