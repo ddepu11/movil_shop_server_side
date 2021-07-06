@@ -18,11 +18,20 @@ const mobileSchema = new mongoose.Schema(
       isRequired: true,
     },
 
-    stars: {
-      type: Number,
-      default: 0,
-      isRequired: false,
-    },
+    reviews: [
+      {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+          isRequired: false,
+        },
+
+        stars: {
+          type: Number,
+          isRequired: false,
+        },
+      },
+    ],
 
     internalMemory: {
       type: Number,

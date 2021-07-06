@@ -57,4 +57,24 @@ const getMobile = async (req, res) => {
   }
 };
 
-export { getMobiles, createMobile, getMobile };
+const reviewMobile = async (req, res) => {
+  try {
+    const { stars, id } = req.body;
+
+    const mobile = await Mobile.findOneAndUpdate(
+      { _id: id },
+      { $push: { reviews: { id: req.userId, stars } } },
+      { new: true }
+    );
+
+    if (mobile) {
+      res.status(200).json({ mobile });
+    } else {
+      res.status(404).json({ msg: 'Could not made review!' });
+    }
+  } catch (err) {
+    res.status(400).json({ msg: '' });
+  }
+};
+
+export { getMobiles, createMobile, getMobile, reviewMobile };
