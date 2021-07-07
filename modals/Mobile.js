@@ -36,6 +36,7 @@ const mobileSchema = new mongoose.Schema(
     avgStar: {
       type: Number,
       isRequired: false,
+      default: 0,
     },
 
     internalMemory: {
@@ -78,12 +79,6 @@ const mobileSchema = new mongoose.Schema(
       isRequired: true,
     },
 
-    sellerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      isRequired: true,
-    },
-
     sellerInfo: {
       name: { type: String },
       email: { type: String },
@@ -103,11 +98,6 @@ const mobileSchema = new mongoose.Schema(
 
   { timestamps: true }
 );
-
-mobileSchema.post('findOneAndUpdate', async function () {
-  const updatedDoc = await this.model.findOne(this.getQuery());
-  console.log({ updatedDoc });
-});
 
 const Mobile = mongoose.model('Mobile', mobileSchema);
 

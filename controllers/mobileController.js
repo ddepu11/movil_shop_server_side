@@ -79,7 +79,7 @@ const reviewMobile = async (req, res) => {
 
 const updateMobileReview = async (req, res) => {
   try {
-    const { stars, mobileId } = req.body;
+    const { stars, mobileId, reviewId } = req.body;
 
     const mobile = await Mobile.findOneAndUpdate(
       { _id: mobileId },
@@ -87,13 +87,37 @@ const updateMobileReview = async (req, res) => {
       { new: true, arrayFilters: [{ 'elem._id': { $eq: reviewId } }] }
     );
 
+    const mobileStars = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    mobile.reviews.forEach((r) => {
+      mobileStars[r.stars] += 1;
+    });
+
+    const calculateAvgStars = () => {
+      const keys = Object.keys(mobileStars);
+      const values = Object.values(mobileStars);
+
+      let u = 0;
+
+      keys.forEach((e, index) => {
+        u += e * values[index];
+      });
+
+      const b = values.reduce((p, c) => p + c);
+
+      return u / b;
+    };
+
+    mobile.avgStar = calculateAvgStars();
+
+    await mobile.save();
+
     if (mobile) {
       res.status(200).json({ mobile });
     } else {
       res.status(404).json({ msg: 'Could not made review!' });
     }
   } catch (err) {
-    console.log(err.message);
     res.status(400).json({ msg: err.message });
   }
 };
