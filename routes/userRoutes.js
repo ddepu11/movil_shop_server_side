@@ -9,6 +9,7 @@ import {
   authUser,
   updateUserInfo,
   changeDisplayPicture,
+  increaseOrDecreaseCartItemQuantity,
   addMobileToCart,
 } from '../controllers/userController.js';
 
@@ -199,5 +200,11 @@ router.put('/:id', authenticateUser, updateUserInfo);
 router.put('/:id/dp', authenticateUser, uploadUserDP, changeDisplayPicture);
 
 router.put(`/:userId/cart`, authenticateUser, addMobileToCart);
+
+router.put(
+  `/:userId/cart/item/:cartItemId`,
+  authenticateUser,
+  increaseOrDecreaseCartItemQuantity
+);
 
 export default router;

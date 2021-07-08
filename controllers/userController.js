@@ -244,6 +244,40 @@ const addMobileToCart = async (req, res) => {
   res.status(404).json({ msg: 'Success !!!' });
 };
 
+const increaseOrDecreaseCartItemQuantity = async (req, res) => {
+  const { userId, cartItemId } = req.params;
+  const { action } = req.body;
+
+  try {
+    let user;
+    if (action === 'INC') {
+      user = await User.findOneAndUpdate(
+        { _id: userId },
+
+        { $inc: { 'cart.$[elem].quantity': +1 } },
+
+        { new: true, arrayFilters: [{ 'elem._id': cartItemId }] }
+      );
+    } else {
+      user = await User.findOneAndUpdate(
+        { _id: userId },
+
+        { $inc: { 'cart.$[elem].quantity': -1 } },
+
+        { new: true, arrayFilters: [{ 'elem._id': cartItemId }] }
+      );
+    }
+
+    if (user) {
+      res.status(200).json({ user });
+    } else {
+      res.status(404).json({ msg: 'Could not increase quantity!' });
+    }
+  } catch (err) {
+    res.status(404).json({ msg: err.message });
+  }
+};
+
 export {
   signIn,
   signUp,
@@ -254,4 +288,5 @@ export {
   updateUserInfo,
   changeDisplayPicture,
   addMobileToCart,
+  increaseOrDecreaseCartItemQuantity,
 };

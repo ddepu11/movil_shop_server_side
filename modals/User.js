@@ -75,7 +75,7 @@ const userSchema = new Schema(
           isRequired: true,
         },
 
-        sellerEmail: {
+        sellerId: {
           type: String,
           isRequired: true,
         },
@@ -83,6 +83,12 @@ const userSchema = new Schema(
         price: {
           type: String,
           isRequired: true,
+        },
+
+        quantity: {
+          type: Number,
+          isRequired: true,
+          default: 0,
         },
       },
     ],
