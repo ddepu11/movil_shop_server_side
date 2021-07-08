@@ -9,6 +9,7 @@ import {
   authUser,
   updateUserInfo,
   changeDisplayPicture,
+  addMobileToCart,
 } from '../controllers/userController.js';
 
 import authenticateUser from '../middleweres/authenticateUser.js';
@@ -196,5 +197,7 @@ router.get('/authenticate', authenticateUser, authUser);
 router.put('/:id', authenticateUser, updateUserInfo);
 
 router.put('/:id/dp', authenticateUser, uploadUserDP, changeDisplayPicture);
+
+router.put(`/:userId/cart`, authenticateUser, addMobileToCart);
 
 export default router;

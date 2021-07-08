@@ -47,6 +47,45 @@ const userSchema = new Schema(
       type: String,
       isRequired: true,
     },
+
+    cart: [
+      {
+        mobileId: {
+          type: String,
+          isRequired: true,
+        },
+
+        picture: {
+          type: String,
+          isRequired: true,
+        },
+
+        title: {
+          type: String,
+          isRequired: true,
+        },
+
+        color: {
+          type: String,
+          isRequired: true,
+        },
+
+        sellerName: {
+          type: String,
+          isRequired: true,
+        },
+
+        sellerEmail: {
+          type: String,
+          isRequired: true,
+        },
+
+        price: {
+          type: String,
+          isRequired: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
