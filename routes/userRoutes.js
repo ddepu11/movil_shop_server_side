@@ -11,6 +11,7 @@ import {
   changeDisplayPicture,
   increaseOrDecreaseCartItemQuantity,
   addMobileToCart,
+  removeUserCartItem,
 } from '../controllers/userController.js';
 
 import authenticateUser from '../middleweres/authenticateUser.js';
@@ -205,6 +206,12 @@ router.put(
   `/:userId/cart/item/:cartItemId`,
   authenticateUser,
   increaseOrDecreaseCartItemQuantity
+);
+
+router.delete(
+  `/:userId/cart/item/:cartItemId`,
+  authenticateUser,
+  removeUserCartItem
 );
 
 export default router;
