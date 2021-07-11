@@ -88,7 +88,7 @@ const userSchema = new Schema(
         quantity: {
           type: Number,
           isRequired: true,
-          default: 0,
+          default: 1,
         },
       },
     ],

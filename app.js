@@ -8,6 +8,7 @@ import swaggerJsDoc from 'swagger-jsdoc';
 import mobile from './routes/mobileRoutes.js';
 import user from './routes/userRoutes.js';
 import seller from './routes/sellerRoutes.js';
+import order from './routes/ordersRoute.js';
 
 dotenv.config({ path: './config.env' });
 
@@ -60,5 +61,7 @@ app.use('/users', user);
 app.use('/mobiles', mobile);
 
 app.use('/sellers', seller);
+
+app.use('/orders', order);
 
 export default app;
