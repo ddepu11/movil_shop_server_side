@@ -316,6 +316,30 @@ const removeAllCartItems = async (req, res) => {
   }
 };
 
+const saveDeliveryAddress = async (req, res) => {
+  const { userId } = req.params;
+
+  const deliveryAddress = req.body;
+
+  console.log({ deliveryAddress });
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: userId },
+      { $set: { deliveryAddress: { ...deliveryAddress } } },
+      { new: true }
+    );
+
+    if (user) {
+      res.status(200).json({ user });
+    } else {
+      res.status(404).json({ msg: 'Could Not Save address' });
+    }
+  } catch (err) {
+    res.status(404).json({ msg: err.message });
+  }
+};
+
 export {
   signIn,
   signUp,
@@ -329,4 +353,5 @@ export {
   increaseOrDecreaseCartItemQuantity,
   removeUserCartItem,
   removeAllCartItems,
+  saveDeliveryAddress,
 };

@@ -92,7 +92,18 @@ const userSchema = new Schema(
         },
       },
     ],
+
+    deliveryAddress: {
+      state: { type: String, isRequired: false },
+
+      city: { type: String, isRequired: false },
+
+      pincode: { type: Number, isRequired: false },
+
+      address: { type: String, isRequired: false },
+    },
   },
+
   { timestamps: true }
 );
 
