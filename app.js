@@ -54,8 +54,6 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-console.log(join(__dirname, 'public'));
-
 app.use(express.static(join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
