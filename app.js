@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import mobile from './routes/mobileRoutes.js';
 import user from './routes/userRoutes.js';
 import seller from './routes/sellerRoutes.js';
@@ -43,6 +45,9 @@ const app = express();
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // Middleweres
 // Morgen is a logger
 if (process.env.NODE_ENV === 'development') {
@@ -50,10 +55,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static(join(__dirname, '/client/public')));
 }
 
-app.use(express.static('public'));
+app.use(express.static(join(__dirname, '/public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
