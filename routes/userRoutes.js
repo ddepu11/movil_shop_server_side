@@ -14,6 +14,7 @@ import {
   removeUserCartItem,
   removeAllCartItems,
   saveDeliveryAddress,
+  saveOrders,
 } from '../controllers/userController.js';
 
 import authenticateUser from '../middleweres/authenticateUser.js';
@@ -219,5 +220,7 @@ router.delete(
 router.delete(`/:userId/cart/items`, authenticateUser, removeAllCartItems);
 
 router.put(`/:userId/deliveryAddress`, authenticateUser, saveDeliveryAddress);
+
+router.put(`/:userId/orders`, authenticateUser, saveOrders);
 
 export default router;

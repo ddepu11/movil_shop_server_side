@@ -340,6 +340,35 @@ const saveDeliveryAddress = async (req, res) => {
   }
 };
 
+const saveOrders = async (req, res) => {
+  const { userId } = req.params;
+
+  const { cart } = req.body;
+
+  cart.map((i) => {
+    const m = i;
+    delete m._id;
+    delete m.quantity;
+    return m;
+  });
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: userId },
+      { $push: { orders: [...cart] } },
+      { new: true }
+    );
+
+    if (user) {
+      res.status(200).json({ user });
+    } else {
+      res.status(400).json({ msg: 'Could not save orders!' });
+    }
+  } catch (err) {
+    res.status(400).json({ msg: err.message });
+  }
+};
+
 export {
   signIn,
   signUp,
@@ -354,4 +383,5 @@ export {
   removeUserCartItem,
   removeAllCartItems,
   saveDeliveryAddress,
+  saveOrders,
 };

@@ -102,6 +102,33 @@ const userSchema = new Schema(
 
       address: { type: String, isRequired: false },
     },
+
+    orders: [
+      {
+        picture: { type: String, isRequired: true },
+        title: { type: String, isRequired: true },
+        color: { type: String, isRequired: true },
+        sellerName: { type: String, isRequired: true },
+        sellerId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+          isRequired: true,
+        },
+        mobileId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Mobile',
+          isRequired: true,
+        },
+
+        price: { type: String, isRequired: true },
+
+        deliveredDate: {
+          type: Date,
+          isRequired: true,
+          default: new Date().toDateString(),
+        },
+      },
+    ],
   },
 
   { timestamps: true }
