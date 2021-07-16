@@ -56,6 +56,7 @@ if (process.env.NODE_ENV === 'development') {
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(join(__dirname, '/client/build')));
+  app.use(express.static(join(__dirname, '/public')));
 }
 
 app.use('/', express.static(join(__dirname, '/public')));
