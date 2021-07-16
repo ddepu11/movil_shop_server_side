@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { dirname, join, resolve } from 'path';
 import mobile from './routes/mobileRoutes.js';
 import user from './routes/userRoutes.js';
 import seller from './routes/sellerRoutes.js';
@@ -56,6 +56,9 @@ if (process.env.NODE_ENV === 'development') {
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(join(__dirname, '/client/public')));
+  app.get('*', (req, res) =>
+    res.sendFile(resolve(__dirname, 'client', 'build', 'index.html'))
+  );
 }
 
 app.use(express.static(join(__dirname, '/public')));
