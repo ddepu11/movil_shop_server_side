@@ -130,6 +130,8 @@ const doesUserExists = async (req, res) => {
       res.cookie('jwt', token, {
         maxAge: new Date(Date.now() + 60 * 60 * 24 * 1000),
         httpOnly: true,
+        SameSite: 'None',
+        secure: true,
       });
 
       res.status(200).json({ user });
