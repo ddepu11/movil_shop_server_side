@@ -15,13 +15,6 @@ import order from './routes/ordersRoute.js';
 
 dotenv.config({ path: './config.env' });
 
-app.use(
-  cors({
-    origin: '*',
-    credentials: true,
-  })
-);
-
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -50,6 +43,13 @@ const options = {
 const specs = swaggerJsDoc(options);
 
 const app = express();
+
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+);
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
