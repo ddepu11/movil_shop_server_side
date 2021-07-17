@@ -31,8 +31,6 @@ const signIn = async (req, res) => {
         res.cookie('jwt', token, {
           httpOnly: true,
           expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
-          SameSite: false,
-          secure: true,
         });
 
         res.status(200).json({
@@ -113,7 +111,7 @@ const getAccountInfo = (req, res) => {
 // @desc  Logging user out
 // @route GET /user/log-out
 const logOut = (req, res) => {
-  res.cookie('jwt', '', { maxAge: 1, SameSite: false, secure: true });
+  res.cookie('jwt', '', { maxAge: 1 });
   res.json({ msg: 'User logged Out!!!' });
 };
 
@@ -130,8 +128,6 @@ const doesUserExists = async (req, res) => {
       res.cookie('jwt', token, {
         maxAge: new Date(Date.now() + 60 * 60 * 24 * 1000),
         httpOnly: true,
-        SameSite: false,
-        secure: true,
       });
 
       res.status(200).json({ user });
