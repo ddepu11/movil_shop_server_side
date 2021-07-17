@@ -27,7 +27,7 @@ const signIn = async (req, res) => {
         // 1m = 60s
         // 1hr = 60m
         // 1d = 24hr
-        // values in miliseconds
+        // values are in miliseconds
         res.cookie('jwt', token, {
           httpOnly: true,
           expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
