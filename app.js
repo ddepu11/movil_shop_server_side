@@ -7,12 +7,20 @@ import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import { fileURLToPath } from 'url';
 import { dirname, join, resolve } from 'path';
+import cors from 'cors';
 import mobile from './routes/mobileRoutes.js';
 import user from './routes/userRoutes.js';
 import seller from './routes/sellerRoutes.js';
 import order from './routes/ordersRoute.js';
 
 dotenv.config({ path: './config.env' });
+
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+);
 
 const options = {
   definition: {
