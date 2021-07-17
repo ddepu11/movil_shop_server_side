@@ -31,6 +31,8 @@ const signIn = async (req, res) => {
         res.cookie('jwt', token, {
           httpOnly: true,
           expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
+          SameSite: 'None',
+          secure: true,
         });
 
         res.status(200).json({
@@ -111,7 +113,7 @@ const getAccountInfo = (req, res) => {
 // @desc  Logging user out
 // @route GET /user/log-out
 const logOut = (req, res) => {
-  res.cookie('jwt', '', { maxAge: 1 });
+  res.cookie('jwt', '', { maxAge: 1, SameSite: 'None', secure: true });
   res.json({ msg: 'User logged Out!!!' });
 };
 
