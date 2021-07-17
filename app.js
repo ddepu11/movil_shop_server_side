@@ -46,7 +46,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: '*',
+    origin: ['http://localhost:3000', 'https://movil-shop.herokuapp.com'],
     credentials: true,
   })
 );
