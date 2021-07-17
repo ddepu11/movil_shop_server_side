@@ -286,7 +286,7 @@ const removeUserCartItem = async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
       { _id: userId },
-      { $pull: { cart: { _id: cartItemId } } },
+      { $pull: { cart: { mobileId: cartItemId } } },
       { new: true }
     );
 
