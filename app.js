@@ -46,10 +46,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      'http://localhost:3000',
-      'https://ddepu11.github.io/movil_shop_client_side_react/',
-    ],
+    origin: ['https://ddepu11.github.io', 'http://localhost:3000'],
     credentials: true,
   })
 );
