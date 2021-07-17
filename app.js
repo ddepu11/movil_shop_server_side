@@ -46,7 +46,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://movil-shop.herokuapp.com'],
+    origin: [
+      'http://localhost:3000',
+      'https://ddepu11.github.io/movil_shop_client_side_react/',
+    ],
     credentials: true,
   })
 );
