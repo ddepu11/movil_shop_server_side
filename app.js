@@ -47,7 +47,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      'https://60f41ee238f74a6a0248d0b0--gifted-hermann-3114f1.netlify.app/',
+      'https://60f41ee238f74a6a0248d0b0--gifted-hermann-3114f1.netlify.app',
       'http://localhost:3000',
     ],
     credentials: true,
