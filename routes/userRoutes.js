@@ -18,6 +18,7 @@ import {
   listUsers,
   listSeller,
   deleteUser,
+  deleteSeller,
 } from '../controllers/userController.js';
 
 import authenticateUser from '../middleweres/authenticateUser.js';
@@ -233,6 +234,6 @@ router.get(`/role=SELLER`, authenticateUser, listSeller);
 
 router.delete(`/:userId/role=USER`, authenticateUser, deleteUser);
 
-router.delete(`/:userId/role=SELLER`, authenticateUser);
+router.delete(`/:userId/role=SELLER`, authenticateUser, deleteSeller);
 
 export default router;
