@@ -221,8 +221,7 @@ const changeDisplayPicture = async (req, res) => {
 
     res.status(200).json({ updatedUser });
   } catch (err) {
-    console.log(err.message);
-    res.status(404).json({ msg: err.msg });
+    res.status(404).json({ msg: err.message });
   }
 };
 
@@ -325,8 +324,6 @@ const saveDeliveryAddress = async (req, res) => {
 
   const deliveryAddress = req.body;
 
-  console.log({ deliveryAddress });
-
   try {
     const user = await User.findOneAndUpdate(
       { _id: userId },
@@ -373,6 +370,64 @@ const saveOrders = async (req, res) => {
   }
 };
 
+const listUsers = async (req, res) => {
+  try {
+    const users = await User.find({ role: 'USER' }, '-password -role');
+
+    if (users) {
+      res.status(200).json({ users });
+    } else {
+      res.status(404).json({ msg: 'Could not find users!' });
+    }
+  } catch (err) {
+    res.status(400).json({ msg: err.message });
+  }
+};
+
+const listSeller = async (req, res) => {
+  try {
+    const sellers = await User.find(
+      { role: 'SELLER' },
+      '-password -role -cart -orders'
+    );
+
+    if (sellers) {
+      res.status(200).json({ sellers });
+    } else {
+      res.status(404).json({ msg: 'Could not find sellers!' });
+    }
+  } catch (err) {
+    res.status(404).json({ msg: err.message });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findOneAndDelete({ _id: userId, role: 'USER' });
+
+    if (user) {
+      if (
+        user.displayPicture !== 'femaleDP.png' &&
+        user.displayPicture !== 'maleDP.png'
+      ) {
+        fs.access(`public/dp/${user.displayPicture}`)
+          .then(async () => {
+            await fs.unlink(`public/dp/${user.displayPicture}`);
+          })
+          .catch(() => {});
+      }
+
+      res.status(200).json({ mgs: 'Successfully deleted users data!' });
+    } else {
+      res.status(409).json({ mgs: 'Could not delete user!' });
+    }
+  } catch (err) {
+    res.status(409).json({ mgs: err.message });
+  }
+};
+
 export {
   signIn,
   signUp,
@@ -388,4 +443,7 @@ export {
   removeAllCartItems,
   saveDeliveryAddress,
   saveOrders,
+  listUsers,
+  listSeller,
+  deleteUser,
 };

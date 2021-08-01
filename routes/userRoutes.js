@@ -15,9 +15,13 @@ import {
   removeAllCartItems,
   saveDeliveryAddress,
   saveOrders,
+  listUsers,
+  listSeller,
+  deleteUser,
 } from '../controllers/userController.js';
 
 import authenticateUser from '../middleweres/authenticateUser.js';
+
 import uploadUserDP from '../middleweres/uploadUserDP.js';
 
 const router = Router();
@@ -222,5 +226,13 @@ router.delete(`/:userId/cart/items`, authenticateUser, removeAllCartItems);
 router.put(`/:userId/deliveryAddress`, authenticateUser, saveDeliveryAddress);
 
 router.put(`/:userId/orders`, authenticateUser, saveOrders);
+
+router.get(`/role=USER`, authenticateUser, listUsers);
+
+router.get(`/role=SELLER`, authenticateUser, listSeller);
+
+router.delete(`/:userId/role=USER`, authenticateUser, deleteUser);
+
+router.delete(`/:userId/role=SELLER`, authenticateUser);
 
 export default router;

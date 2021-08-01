@@ -94,13 +94,13 @@ const userSchema = new Schema(
     ],
 
     deliveryAddress: {
-      state: { type: String, isRequired: false },
+      state: { type: String, isRequired: true, default: '' },
 
-      city: { type: String, isRequired: false },
+      city: { type: String, isRequired: true, default: '' },
 
-      pincode: { type: Number, isRequired: false },
+      pincode: { type: Number, isRequired: true },
 
-      address: { type: String, isRequired: false },
+      address: { type: String, isRequired: true, default: '' },
     },
 
     orders: [
