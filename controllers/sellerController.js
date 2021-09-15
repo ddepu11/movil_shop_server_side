@@ -10,10 +10,9 @@ export const getSellerMobiles = async (req, res) => {
     if (mobiles && mobiles.length !== 0) {
       res.status(202).json({ mobiles });
     } else {
-      res.status(400).json({ msg: 'there are no mobile for you!!' });
+      res.status(400).json({ msg: 'You have not added any mobile yet!' });
     }
   } catch (err) {
-    console.log(err);
     res.status(404).json({ msg: err.message });
   }
 };
