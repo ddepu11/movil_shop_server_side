@@ -70,7 +70,7 @@ const reviewMobile = async (req, res) => {
 
     const mobileStars = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
-    // Increase a perticular star by one, that has been given to this mobile
+    // Calculating how many times a perticular star has been given to this mobile
     mobile.reviews.forEach((r) => {
       mobileStars[r.stars] += 1;
     });
@@ -78,6 +78,10 @@ const reviewMobile = async (req, res) => {
     const calculateAvgStars = () => {
       const keys = Object.keys(mobileStars);
       const values = Object.values(mobileStars);
+
+      // u - upper , b - bottom
+
+      // (1 * howManyTimesItHasBeenGiven + 2 * howManyTimesItHasBeenGiven + ... + 5 *howManyTimesItHasBeenGiven) / total stars
 
       let u = 0;
 
@@ -116,7 +120,7 @@ const updateMobileReview = async (req, res) => {
 
     const mobileStars = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
-    // Increase a perticular star by one, that has been given to this mobile
+    // Calculating how many times a perticular star has been given to this mobile
     mobile.reviews.forEach((r) => {
       mobileStars[r.stars] += 1;
     });
@@ -126,6 +130,10 @@ const updateMobileReview = async (req, res) => {
       const values = Object.values(mobileStars);
 
       let u = 0;
+
+      // u - upper , b - bottom
+
+      // (1 * howManyTimesItHasBeenGiven + 2 * howManyTimesItHasBeenGiven + ... + 5 *howManyTimesItHasBeenGiven) / total stars
 
       keys.forEach((e, index) => {
         u += e * values[index];
