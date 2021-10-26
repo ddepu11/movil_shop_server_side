@@ -23,7 +23,7 @@ import {
 
 import authenticateUser from '../middleweres/authenticateUser.js';
 
-import uploadUserDP from '../middleweres/uploadUserDP.js';
+// import uploadUserDP from '../middleweres/uploadUserDP.js';
 
 const router = Router();
 
@@ -167,7 +167,9 @@ router.post('/sign-in', signIn);
  *               $ref: '#/components/schemas/UserSuccess'
  */
 
-router.post('/sign-up', uploadUserDP, signUp);
+//  uploadUserDP
+router.post('/sign-up', signUp);
+
 /**
  * @swagger
  * /users/account-info:
@@ -206,7 +208,8 @@ router.get('/authenticate', authenticateUser, authUser);
 
 router.put('/:id', authenticateUser, updateUserInfo);
 
-router.put('/:id/dp', authenticateUser, uploadUserDP, changeDisplayPicture);
+// uploadUserDP
+router.put('/:id/dp', authenticateUser, changeDisplayPicture);
 
 router.put(`/:userId/cart`, authenticateUser, addMobileToCart);
 

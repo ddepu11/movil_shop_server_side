@@ -38,9 +38,15 @@ const userSchema = new Schema(
     },
 
     displayPicture: {
-      type: String,
-      default: 'displayPicture.png',
-      isRequired: false,
+      url: {
+        type: String,
+        isRequired: true,
+      },
+
+      fileName: {
+        type: String,
+        isRequired: true,
+      },
     },
 
     gender: {

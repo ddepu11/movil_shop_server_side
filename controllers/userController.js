@@ -87,11 +87,15 @@ const signUp = async (req, res) => {
       // Password hashing
       const salt = await genSalt(10);
       req.body.password = await hash(req.body.password, salt);
+
       const dpName = req.body.gender === 'male' ? 'maleDP.png' : 'femaleDP.png';
 
       const user = new User({
         ...req.body,
-        displayPicture: req.file ? req.file.filename.trim() : dpName,
+        displayPicture: {
+          url: req.body.dp.url,
+          fileName: req.body.dp.fileName ? req.body.dp.fileName : dpName,
+        },
       });
 
       await user.save();
@@ -101,6 +105,7 @@ const signUp = async (req, res) => {
       });
     }
   } catch (err) {
+    console.log(err);
     res.status(400).json({ msg: err.message });
   }
 };
@@ -202,21 +207,11 @@ const changeDisplayPicture = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const prevDpName = req.userInfo.displayPicture;
-    const newDpName = req.file.filename;
-
-    // Dont remove default images
-    if (prevDpName !== 'femaleDP.png' && prevDpName !== 'maleDP.png') {
-      fs.access(`public/dp/${prevDpName}`)
-        .then(async () => {
-          await fs.unlink(`public/dp/${prevDpName}`);
-        })
-        .catch(() => {});
-    }
+    const { url, fileName } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       { _id: id },
-      { displayPicture: newDpName },
+      { displayPicture: { url, fileName } },
       { new: true }
     );
 
