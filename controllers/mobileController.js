@@ -68,6 +68,32 @@ const reviewMobile = async (req, res) => {
       { new: true }
     );
 
+    const mobileStars = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+    // Increase a perticular star by one, that has been given to this mobile
+    mobile.reviews.forEach((r) => {
+      mobileStars[r.stars] += 1;
+    });
+
+    const calculateAvgStars = () => {
+      const keys = Object.keys(mobileStars);
+      const values = Object.values(mobileStars);
+
+      let u = 0;
+
+      keys.forEach((e, index) => {
+        u += e * values[index];
+      });
+
+      const b = values.reduce((p, c) => p + c);
+
+      return u / b;
+    };
+
+    mobile.avgStar = calculateAvgStars();
+
+    await mobile.save();
+
     if (mobile) {
       res.status(200).json({ mobile });
     } else {
@@ -90,6 +116,7 @@ const updateMobileReview = async (req, res) => {
 
     const mobileStars = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
+    // Increase a perticular star by one, that has been given to this mobile
     mobile.reviews.forEach((r) => {
       mobileStars[r.stars] += 1;
     });
