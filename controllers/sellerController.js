@@ -1,4 +1,3 @@
-import fs from 'fs';
 import Mobile from '../modals/Mobile.js';
 
 export const getSellerMobiles = async (req, res) => {
@@ -24,16 +23,6 @@ export const deleteSellerMobile = async (req, res) => {
     const mobile = await Mobile.findByIdAndDelete(id);
 
     if (mobile) {
-      const folder = `public/sellers/${mobile.sellerInfo.id}/`;
-
-      mobile.pictures.forEach((p) => {
-        fs.access(`${folder}/${p}`, (err) => {
-          if (!err) {
-            fs.unlink(`${folder}/${p}`, () => {});
-          }
-        });
-      });
-
       res.status(200).json({ msg: 'Successfully deleted a mobile' });
     } else {
       res.status(404).json({ msg: 'Could not delete a mobile' });
