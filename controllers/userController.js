@@ -1,5 +1,4 @@
 import { genSalt, hash, compare } from 'bcrypt';
-import fs from 'fs/promises';
 import User from '../modals/User.js';
 import Mobile from '../modals/Mobile.js';
 import generateAuthToken from '../utils/generateAuthToken.js';
@@ -404,17 +403,6 @@ const deleteUser = async (req, res) => {
     const user = await User.findOneAndDelete({ _id: userId, role: 'USER' });
 
     if (user) {
-      if (
-        user.displayPicture !== 'femaleDP.png' &&
-        user.displayPicture !== 'maleDP.png'
-      ) {
-        fs.access(`public/dp/${user.displayPicture}`)
-          .then(async () => {
-            await fs.unlink(`public/dp/${user.displayPicture}`);
-          })
-          .catch(() => {});
-      }
-
       res.status(200).json({ mgs: 'Successfully deleted users data!' });
     } else {
       res.status(409).json({ mgs: 'Could not delete user!' });
@@ -431,41 +419,7 @@ const deleteSeller = async (req, res) => {
     const user = await User.findOneAndDelete({ _id: userId, role: 'SELLER' });
 
     if (user) {
-      const mobiles = await Mobile.find({ 'sellerInfo.id': userId });
-
       await Mobile.deleteMany({ 'sellerInfo.id': userId });
-
-      // Delete Each Mobile pictures
-      if (mobiles) {
-        mobiles.forEach((i) => {
-          const {
-            pictures,
-            sellerInfo: { id },
-          } = i;
-
-          const folder = `public/sellers/${id}/`;
-
-          fs.access(folder)
-            .then(() => {
-              pictures.forEach((item) => {
-                fs.unlink(`${folder}/${item}`, () => {});
-              });
-            })
-            .catch(() => {});
-        });
-      }
-
-      // Delete Seller DP
-      if (
-        user.displayPicture !== 'femaleDP.png' &&
-        user.displayPicture !== 'maleDP.png'
-      ) {
-        fs.access(`public/dp/${user.displayPicture}`)
-          .then(async () => {
-            await fs.unlink(`public/dp/${user.displayPicture}`);
-          })
-          .catch(() => {});
-      }
 
       res.status(200).json({ mgs: 'Successfully deleted seller!' });
     } else {
