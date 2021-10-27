@@ -74,10 +74,19 @@ const mobileSchema = new mongoose.Schema(
       isRequired: true,
     },
 
-    pictures: {
-      type: Array,
-      isRequired: true,
-    },
+    pictures: [
+      {
+        url: {
+          type: String,
+          isRequired: true,
+        },
+
+        fileName: {
+          type: String,
+          isRequired: true,
+        },
+      },
+    ],
 
     sellerInfo: {
       name: { type: String },

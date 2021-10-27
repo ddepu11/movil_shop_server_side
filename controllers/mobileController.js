@@ -20,8 +20,11 @@ const getMobiles = async (req, res) => {
 // @desc   Save a mobile data
 // @route  POST  mobiles/
 const createMobile = async (req, res) => {
-  const pictures = req.files.map((e) => e.filename);
-  const colors = req.body.colors.split(',');
+  const pictures = Array.from(req.body.pictures);
+
+  let colors = String(req.body.colors);
+
+  colors = colors.split(',');
 
   const { sellerId, sellerEmail, sellerName, ...body } = req.body;
 
