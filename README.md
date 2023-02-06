@@ -1,6 +1,6 @@
 # This is a back end of MovilShop MERN stack web app
 
-### Made it using nodejs, expressjs, mongoDB, and it is hosted in heroku
+### Made it using nodejs, expressjs, mongoDB, and it is hosted in Railway app
 
 # [Live Demo](https://movil-shop.netlify.app/)
 
